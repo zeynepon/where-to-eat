@@ -1,6 +1,10 @@
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+.DS_Store
+WhereToEat/.DS_Store
+WhereToEat/WhereToEat/.DS_Store
+
 
 ## User settings
 xcuserdata/
