@@ -1,5 +1,5 @@
 //
-//  Location.swift
+//  MapLocation.swift
 //  WhereToEat
 //
 //  Created by Zeynep on 11/4/23.
@@ -7,7 +7,7 @@
 
 import MapKit
 
-public struct Location {
+public struct MapLocation {
     let id = UUID()
     public private(set) var name: String
     public private(set) var coordinate: CLLocationCoordinate2D
