@@ -8,6 +8,7 @@
 import MapKit
 
 public struct MapLocation {
+    // TODO: Change the name of this file and up top
     let id = UUID()
     public private(set) var name: String
     public private(set) var coordinate: CLLocationCoordinate2D

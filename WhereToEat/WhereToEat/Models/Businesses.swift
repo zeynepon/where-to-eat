@@ -44,6 +44,7 @@ public struct Business: Codable, Hashable {
 }
 
 public enum Price: String {
+    // TODO: Try to integrate this in Business struct
     case one = "£"
     case two = "££"
     case three = "£££"
