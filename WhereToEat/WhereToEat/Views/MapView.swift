@@ -14,12 +14,14 @@ struct MapView: View {
     @State private var cameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
     @State private var searchText = ""
     @State private var pinCount = 0
+    @State private var showAddLocationAlert = false
+    @State private var locationText = ""
     
     private var searchResults: [String] {
         if searchText.isEmpty {
             return viewModel.locationNames
         } else {
-            return viewModel.locationNames.filter { $0.contains(searchText) }
+            return viewModel.locationNames.filter { $0.localizedCaseInsensitiveContains(searchText) }
         }
     }
     
@@ -45,10 +47,21 @@ struct MapView: View {
                 .toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         Button("Add location") {
-                            guard let coordinate = cameraPosition.region?.center else { return }
-                            let location = MapLocation(name: "Pin \(pinCount)", coordinate: coordinate)
-                            pinCount += 1
-                            viewModel.addLocation(location: location)
+                            showAddLocationAlert.toggle()
+                        }
+                        .alert("Add location", isPresented: $showAddLocationAlert) {
+                            TextField("Add a location", text: $locationText)
+                            Button("OK") {
+                                viewModel.addLocation(location: MapLocation(name: locationText, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)))
+                                locationText = ""
+                            }
+                        } message: {
+                            Text("Please enter the name of the location you want to save.")
+                        }
+                    }
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button("Show restaurants") {
+                            
                         }
                     }
                 }
