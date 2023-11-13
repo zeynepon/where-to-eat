@@ -20,7 +20,7 @@ public struct Business: Codable, Hashable {
     public var categories: [Category]
     public var rating: Float
     public var coordinates: Coordinate
-    public var price: String?
+    public var price: Price?
     public var location: Location
     public var phone: String
     public var display_phone: String
@@ -43,8 +43,7 @@ public struct Business: Codable, Hashable {
     }
 }
 
-public enum Price: String {
-    // TODO: Try to integrate this in Business struct
+public enum Price: String, Codable {
     case one = "£"
     case two = "££"
     case three = "£££"

@@ -59,12 +59,12 @@ struct MapView: View {
                             Text("Please enter the name of the location you want to save.")
                         }
                     }
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("Show restaurants") {
-                            
-                        }
-                    }
                 }
+            NavigationLink {
+                BusinessesView(viewModel: viewModel)
+            } label: {
+                Text("Show restaurants")
+            }
         }
         .searchable(text: $searchText)
     }
