@@ -26,8 +26,8 @@ public class InitialMapViewModel: ObservableObject {
         locations.append(location)
     }
     
-    public func fetchRestaurants() async throws -> Businesses? {
-        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=London") else { return nil }
+    public func fetchRestaurants(searchText: String) async throws -> Businesses? {
+        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(searchText)") else { return nil }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer pVVq8q3TDb1qdoYtd7YUHKs2olodh9JhoFVylUw17EdPOA7e5gYziWnIiZ5fuTTUZJWqGJ6s7XstTsfwyHubZi3-jzhqjO1X0CuXMhhPdckzTVchO-N6osSQI7VHZXYx", forHTTPHeaderField: "Authorization")
@@ -57,7 +57,7 @@ public extension InitialMapViewModel {
                  categories: [Category(title: "Farmers Market"), Category(title: "Beer, Wine & Spirits")],
                  rating: 4.5,
                  coordinates: Coordinate(latitude : 51.5051427191678, longitude : -0.0909365332063361),
-                 price: .two,
+                 price: "££",
                  location: Location(address1: "8 Southwark Street",
                                     city: "London",
                                     zip_code: "SE1 1TL",

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EB8E02AF7EEEA003B99BC /* Businesses.swift */; };
-		2174CA812AF68AA200714BDA /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA802AF68AA200714BDA /* Location.swift */; };
+		2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA802AF68AA200714BDA /* MapLocation.swift */; };
 		2174CA862AF68B8900714BDA /* InitialMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA852AF68B8900714BDA /* InitialMapViewModel.swift */; };
 		218E60A92AFFE8020048E6B3 /* BusinessesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E60A82AFFE8020048E6B3 /* BusinessesView.swift */; };
 		218E60AB2AFFE8950048E6B3 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E60AA2AFFE8950048E6B3 /* BusinessView.swift */; };
@@ -19,6 +19,7 @@
 		2192D4D62AF2F12B00AD7531 /* WhereToEatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4D52AF2F12B00AD7531 /* WhereToEatTests.swift */; };
 		2192D4E02AF2F12B00AD7531 /* WhereToEatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4DF2AF2F12B00AD7531 /* WhereToEatUITests.swift */; };
 		2192D4E22AF2F12B00AD7531 /* WhereToEatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4E12AF2F12B00AD7531 /* WhereToEatUITestsLaunchTests.swift */; };
+		219E44B82B16426700CBB1EC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E44B72B16426700CBB1EC /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +41,7 @@
 
 /* Begin PBXFileReference section */
 		216EB8E02AF7EEEA003B99BC /* Businesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Businesses.swift; sourceTree = "<group>"; };
-		2174CA802AF68AA200714BDA /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		2174CA802AF68AA200714BDA /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 		2174CA852AF68B8900714BDA /* InitialMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMapViewModel.swift; sourceTree = "<group>"; };
 		218E60A82AFFE8020048E6B3 /* BusinessesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessesView.swift; sourceTree = "<group>"; };
 		218E60AA2AFFE8950048E6B3 /* BusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessView.swift; sourceTree = "<group>"; };
@@ -55,6 +56,7 @@
 		2192D4DB2AF2F12B00AD7531 /* WhereToEatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhereToEatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2192D4DF2AF2F12B00AD7531 /* WhereToEatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToEatUITests.swift; sourceTree = "<group>"; };
 		2192D4E12AF2F12B00AD7531 /* WhereToEatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToEatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		219E44B72B16426700CBB1EC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +87,9 @@
 		216EB8DF2AF7EEDD003B99BC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2174CA802AF68AA200714BDA /* Location.swift */,
+				2174CA802AF68AA200714BDA /* MapLocation.swift */,
 				216EB8E02AF7EEEA003B99BC /* Businesses.swift */,
+				219E44B72B16426700CBB1EC /* LocationManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -304,7 +307,8 @@
 				2174CA862AF68B8900714BDA /* InitialMapViewModel.swift in Sources */,
 				218E60A92AFFE8020048E6B3 /* BusinessesView.swift in Sources */,
 				2192D4C42AF2F12A00AD7531 /* MapView.swift in Sources */,
-				2174CA812AF68AA200714BDA /* Location.swift in Sources */,
+				219E44B82B16426700CBB1EC /* LocationManager.swift in Sources */,
+				2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */,
 				216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */,
 				2192D4C22AF2F12A00AD7531 /* WhereToEatApp.swift in Sources */,
 			);
@@ -468,6 +472,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WhereToEat/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to improve your experience.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -504,6 +509,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"WhereToEat/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to improve your experience.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

@@ -11,9 +11,11 @@ struct BusinessesView: View {
     @State private var businesses: [Business] = []
     
     private let viewModel: InitialMapViewModel
+    private let searchText: String
     
-    init(viewModel: InitialMapViewModel) {
+    init(viewModel: InitialMapViewModel, searchText: String) {
         self.viewModel = viewModel
+        self.searchText = searchText
     }
     
     var body: some View {
@@ -28,7 +30,7 @@ struct BusinessesView: View {
                 }
             }
             .task {
-                businesses = (try? await viewModel.fetchRestaurants()?.businesses) ?? []
+                businesses = (try? await viewModel.fetchRestaurants(searchText: searchText)?.businesses) ?? []
             }
             .navigationTitle("Businesses")
         }

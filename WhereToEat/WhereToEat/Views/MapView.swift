@@ -8,8 +8,11 @@
 import SwiftUI
 import MapKit
 import SwiftData
+import CoreLocation
+import CoreLocationUI
 
 struct MapView: View {
+    @State private var businesses: [Business] = []
     @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
     @State private var cameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
     @State private var searchText = ""
@@ -25,6 +28,7 @@ struct MapView: View {
         }
     }
     
+    @ObservedObject private var locationManager = LocationManager()
     private let viewModel: InitialMapViewModel
     
     public init(viewModel: InitialMapViewModel) {
@@ -33,40 +37,18 @@ struct MapView: View {
     
     var body: some View {
         NavigationStack {
-            if(!searchText.isEmpty) {
-                Spacer()
-                ForEach(searchResults, id: \.self) { searchResult in
-                    NavigationLink {
-                        Text(searchResult)
-                    } label: {
-                        Text(searchResult)
-                    }
-                }
-            }
             Map(position: $cameraPosition)
-                .toolbar {
-                    ToolbarItem(placement: .primaryAction) {
-                        Button("Add location") {
-                            showAddLocationAlert.toggle()
-                        }
-                        .alert("Add location", isPresented: $showAddLocationAlert) {
-                            TextField("Add a location", text: $locationText)
-                            Button("OK") {
-                                viewModel.addLocation(location: MapLocation(name: locationText, coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0)))
-                                locationText = ""
-                            }
-                        } message: {
-                            Text("Please enter the name of the location you want to save.")
-                        }
+                .searchable(text: $searchText, prompt: "Search for restaurants") {
+                    NavigationLink {
+                        BusinessesView(viewModel: viewModel, searchText: searchText)
+                    } label: {
+                        Image(systemName: "magnifyingglass")
                     }
                 }
-            NavigationLink {
-                BusinessesView(viewModel: viewModel)
-            } label: {
-                Text("Show restaurants")
-            }
         }
-        .searchable(text: $searchText)
+        .onAppear {
+            locationManager.manager.requestWhenInUseAuthorization()
+        }
     }
 }
 
