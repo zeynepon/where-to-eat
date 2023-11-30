@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BusinessesView: View {
+    // TODO: Add a coordinator :)
     @State private var businesses: [Business] = []
     
     private let viewModel: InitialMapViewModel
@@ -30,6 +31,9 @@ struct BusinessesView: View {
                 }
             }
             .task {
+                businesses = (try? await viewModel.fetchRestaurants(searchText: searchText)?.businesses) ?? []
+            }
+            .refreshable {
                 businesses = (try? await viewModel.fetchRestaurants(searchText: searchText)?.businesses) ?? []
             }
             .navigationTitle("Businesses")

@@ -19,7 +19,7 @@ struct MapView: View {
     @State private var pinCount = 0
     @State private var showAddLocationAlert = false
     @State private var locationText = ""
-    
+
     private var searchResults: [String] {
         if searchText.isEmpty {
             return viewModel.locationNames
@@ -27,24 +27,28 @@ struct MapView: View {
             return viewModel.locationNames.filter { $0.localizedCaseInsensitiveContains(searchText) }
         }
     }
-    
+
     @ObservedObject private var locationManager = LocationManager()
     private let viewModel: InitialMapViewModel
-    
+
     public init(viewModel: InitialMapViewModel) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
         NavigationStack {
             Map(position: $cameraPosition)
-                .searchable(text: $searchText, prompt: "Search for restaurants") {
-                    NavigationLink {
-                        BusinessesView(viewModel: viewModel, searchText: searchText)
-                    } label: {
-                        Image(systemName: "magnifyingglass")
-                    }
-                }
+                .navigationTitle("Where to Eat?")
+                .navigationBarTitleDisplayMode(.inline)
+        }
+        .searchable(text: $searchText, prompt: "Search for restaurants")
+        .onSubmit(of: .search) {
+            // TODO: Instantiate BusinessesView through the coordinator, when onSubmit is called
+            NavigationLink {
+                BusinessesView(viewModel: viewModel, searchText: searchText)
+            } label: {
+                Image(systemName: "magnifyingglass")
+            }
         }
         .onAppear {
             locationManager.manager.requestWhenInUseAuthorization()
@@ -52,6 +56,6 @@ struct MapView: View {
     }
 }
 
-//#Preview {
-//    InitialMapView(viewModel: InitialMapViewModel())
-//}
+#Preview {
+    MapView(viewModel: InitialMapViewModel())
+}

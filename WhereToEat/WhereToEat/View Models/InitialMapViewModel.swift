@@ -8,6 +8,8 @@
 import MapKit
 
 public class InitialMapViewModel: ObservableObject {
+    // TODO: Refactor folders
+    // TODO: ID where you've used design patterns
     private enum NetworkError: Error {
         case invalidServerResponse
         case unsupportedJson
@@ -27,6 +29,7 @@ public class InitialMapViewModel: ObservableObject {
     }
     
     public func fetchRestaurants(searchText: String) async throws -> Businesses? {
+        // TODO: Fix warnings that have showed up in the console
         guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(searchText)") else { return nil }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
