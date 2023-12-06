@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21655EF12B19EE7600B36557 /* RestaurantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF02B19EE7600B36557 /* RestaurantsCoordinator.swift */; };
+		21655EF32B19EE8C00B36557 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF22B19EE8C00B36557 /* Coordinator.swift */; };
+		21655EF52B19F5DB00B36557 /* RestClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF42B19F5DB00B36557 /* RestClientProtocol.swift */; };
 		216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EB8E02AF7EEEA003B99BC /* Businesses.swift */; };
 		2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA802AF68AA200714BDA /* MapLocation.swift */; };
 		2174CA862AF68B8900714BDA /* InitialMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA852AF68B8900714BDA /* InitialMapViewModel.swift */; };
@@ -40,6 +43,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21655EF02B19EE7600B36557 /* RestaurantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsCoordinator.swift; sourceTree = "<group>"; };
+		21655EF22B19EE8C00B36557 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		21655EF42B19F5DB00B36557 /* RestClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClientProtocol.swift; sourceTree = "<group>"; };
 		216EB8E02AF7EEEA003B99BC /* Businesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Businesses.swift; sourceTree = "<group>"; };
 		2174CA802AF68AA200714BDA /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
 		2174CA852AF68B8900714BDA /* InitialMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialMapViewModel.swift; sourceTree = "<group>"; };
@@ -84,32 +90,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		216EB8DF2AF7EEDD003B99BC /* Models */ = {
+		21655EF62B19FD4300B36557 /* MapUI */ = {
+			isa = PBXGroup;
+			children = (
+				2192D4C32AF2F12A00AD7531 /* MapView.swift */,
+			);
+			path = MapUI;
+			sourceTree = "<group>";
+		};
+		21655EF72B19FD5900B36557 /* BusinessUI */ = {
+			isa = PBXGroup;
+			children = (
+				218E60AA2AFFE8950048E6B3 /* BusinessView.swift */,
+				218E60A82AFFE8020048E6B3 /* BusinessesView.swift */,
+			);
+			path = BusinessUI;
+			sourceTree = "<group>";
+		};
+		21655EF82B19FD7500B36557 /* REST */ = {
+			isa = PBXGroup;
+			children = (
+				21655EF92B19FD8D00B36557 /* RestClient */,
+				216EB8DF2AF7EEDD003B99BC /* RestModels */,
+			);
+			path = REST;
+			sourceTree = "<group>";
+		};
+		21655EF92B19FD8D00B36557 /* RestClient */ = {
+			isa = PBXGroup;
+			children = (
+				21655EF42B19F5DB00B36557 /* RestClientProtocol.swift */,
+				2174CA852AF68B8900714BDA /* InitialMapViewModel.swift */,
+			);
+			path = RestClient;
+			sourceTree = "<group>";
+		};
+		216EB8DF2AF7EEDD003B99BC /* RestModels */ = {
 			isa = PBXGroup;
 			children = (
 				2174CA802AF68AA200714BDA /* MapLocation.swift */,
 				216EB8E02AF7EEEA003B99BC /* Businesses.swift */,
 				219E44B72B16426700CBB1EC /* LocationManager.swift */,
 			);
-			path = Models;
+			path = RestModels;
 			sourceTree = "<group>";
 		};
-		2174CA822AF68B5B00714BDA /* Views */ = {
+		2174CA842AF68B7D00714BDA /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				2192D4C32AF2F12A00AD7531 /* MapView.swift */,
-				218E60AA2AFFE8950048E6B3 /* BusinessView.swift */,
-				218E60A82AFFE8020048E6B3 /* BusinessesView.swift */,
+				21655EF02B19EE7600B36557 /* RestaurantsCoordinator.swift */,
+				21655EF22B19EE8C00B36557 /* Coordinator.swift */,
 			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		2174CA842AF68B7D00714BDA /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-				2174CA852AF68B8900714BDA /* InitialMapViewModel.swift */,
-			);
-			path = "View Models";
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		2192D4B52AF2F12900AD7531 = {
@@ -118,7 +150,6 @@
 				2192D4C02AF2F12A00AD7531 /* WhereToEat */,
 				2192D4D42AF2F12B00AD7531 /* WhereToEatTests */,
 				2192D4DE2AF2F12B00AD7531 /* WhereToEatUITests */,
-				2192D4BF2AF2F12A00AD7531 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,16 +161,18 @@
 				2192D4DB2AF2F12B00AD7531 /* WhereToEatUITests.xctest */,
 			);
 			name = Products;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		2192D4C02AF2F12A00AD7531 /* WhereToEat */ = {
 			isa = PBXGroup;
 			children = (
 				2192D4C72AF2F12B00AD7531 /* Assets.xcassets */,
-				216EB8DF2AF7EEDD003B99BC /* Models */,
+				21655EF72B19FD5900B36557 /* BusinessUI */,
+				2174CA842AF68B7D00714BDA /* Coordinator */,
+				21655EF62B19FD4300B36557 /* MapUI */,
+				21655EF82B19FD7500B36557 /* REST */,
 				2192D4CA2AF2F12B00AD7531 /* Preview Content */,
-				2174CA842AF68B7D00714BDA /* View Models */,
-				2174CA822AF68B5B00714BDA /* Views */,
 				2192D4C92AF2F12B00AD7531 /* WhereToEat.entitlements */,
 				2192D4C12AF2F12A00AD7531 /* WhereToEatApp.swift */,
 			);
@@ -165,6 +198,7 @@
 		2192D4DE2AF2F12B00AD7531 /* WhereToEatUITests */ = {
 			isa = PBXGroup;
 			children = (
+				2192D4BF2AF2F12A00AD7531 /* Products */,
 				2192D4DF2AF2F12B00AD7531 /* WhereToEatUITests.swift */,
 				2192D4E12AF2F12B00AD7531 /* WhereToEatUITestsLaunchTests.swift */,
 			);
@@ -305,9 +339,12 @@
 			files = (
 				218E60AB2AFFE8950048E6B3 /* BusinessView.swift in Sources */,
 				2174CA862AF68B8900714BDA /* InitialMapViewModel.swift in Sources */,
+				21655EF32B19EE8C00B36557 /* Coordinator.swift in Sources */,
 				218E60A92AFFE8020048E6B3 /* BusinessesView.swift in Sources */,
 				2192D4C42AF2F12A00AD7531 /* MapView.swift in Sources */,
 				219E44B82B16426700CBB1EC /* LocationManager.swift in Sources */,
+				21655EF12B19EE7600B36557 /* RestaurantsCoordinator.swift in Sources */,
+				21655EF52B19F5DB00B36557 /* RestClientProtocol.swift in Sources */,
 				2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */,
 				216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */,
 				2192D4C22AF2F12A00AD7531 /* WhereToEatApp.swift in Sources */,

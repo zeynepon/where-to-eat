@@ -6,21 +6,26 @@
 //
 
 import MapKit
+import SwiftUI
 
-public class InitialMapViewModel: ObservableObject {
-    // TODO: Refactor folders
+public class InitialMapViewModel: ObservableObject, RestClientProtocol {
+    public typealias FetchedData = Businesses
+    
     // TODO: ID where you've used design patterns
     private enum NetworkError: Error {
         case invalidServerResponse
         case unsupportedJson
     }
     
+    weak var coordinator: RestaurantsCoordinator?
+    
     public var locations: [MapLocation]
     public var locationNames: [String] {
         locations.map { $0.name }
     }
     
-    public init(locations: [MapLocation] = []) {
+    init(coordinator: RestaurantsCoordinator? = nil, locations: [MapLocation] = []) {
+        self.coordinator = coordinator
         self.locations = locations
     }
     
@@ -28,9 +33,9 @@ public class InitialMapViewModel: ObservableObject {
         locations.append(location)
     }
     
-    public func fetchRestaurants(searchText: String) async throws -> Businesses? {
+    public func fetchData(_ input: String) async throws -> Businesses? {
         // TODO: Fix warnings that have showed up in the console
-        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(searchText)") else { return nil }
+        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(input)") else { return nil }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer pVVq8q3TDb1qdoYtd7YUHKs2olodh9JhoFVylUw17EdPOA7e5gYziWnIiZ5fuTTUZJWqGJ6s7XstTsfwyHubZi3-jzhqjO1X0CuXMhhPdckzTVchO-N6osSQI7VHZXYx", forHTTPHeaderField: "Authorization")
@@ -47,6 +52,10 @@ public class InitialMapViewModel: ObservableObject {
         }
         
         return businesses
+    }
+    
+    func showRestaurants(searchText: String) -> BusinessesView? {
+        coordinator?.setUpBusinessesView(searchText: searchText)
     }
 }
 

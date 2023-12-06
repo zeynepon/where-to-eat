@@ -7,7 +7,9 @@
 
 import Foundation
 
-public struct Businesses: Codable {
+public protocol DataTypeProtocol: Codable {}
+
+public struct Businesses: Codable, DataTypeProtocol {
     public var businesses: [Business]
 }
 
