@@ -11,7 +11,7 @@ struct BusinessesView: View {
     @State private var businesses: [Business] = []
     
     private let viewModel: InitialMapViewModel
-    private let searchText: String
+    private var searchText: String = ""
     
     init(viewModel: InitialMapViewModel, searchText: String) {
         self.viewModel = viewModel
@@ -29,9 +29,11 @@ struct BusinessesView: View {
                     }
                 }
             }
-            .task {
-                businesses = (try? await viewModel.fetchData(searchText)?.businesses) ?? []
-            }
+            .onChange(of: searchText, { oldValue, newValue in
+                Task { @MainActor in
+                    businesses = (try? await viewModel.fetchData(searchText)?.businesses) ?? []
+                }
+            })
             .refreshable {
                 businesses = (try? await viewModel.fetchData(searchText)?.businesses) ?? []
             }

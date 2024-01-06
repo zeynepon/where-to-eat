@@ -12,9 +12,6 @@ import CoreLocation
 import CoreLocationUI
 
 struct MapView: View {
-    @State private var businesses: [Business] = []
-    @State private var cameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
-    @State private var isSearching: Bool = false
     @State private var searchText = ""
     
     private var searchResults: [String] {
@@ -25,6 +22,8 @@ struct MapView: View {
         }
     }
     
+    
+    
     @ObservedObject private var locationManager = LocationManager()
     private let viewModel: InitialMapViewModel
     
@@ -34,11 +33,26 @@ struct MapView: View {
     
     var body: some View {
         NavigationStack {
-            map
+            SearchingView(searchText: $searchText, viewModel: viewModel)
         }
         .searchable(text: $searchText, prompt: "Search for restaurants")
         .onAppear {
             locationManager.manager.requestWhenInUseAuthorization()
+        }
+    }
+}
+
+struct SearchingView: View {
+    @Environment(\.isSearching) private var isSearching
+    @Binding var searchText: String
+    @State private var cameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12),span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
+    let viewModel: InitialMapViewModel
+    
+    var body: some View {
+        if isSearching {
+            BusinessesView(viewModel: viewModel, searchText: searchText)
+        } else {
+            map
         }
     }
     
