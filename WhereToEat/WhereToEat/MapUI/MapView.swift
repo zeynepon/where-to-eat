@@ -11,6 +11,12 @@ import SwiftData
 import CoreLocation
 import CoreLocationUI
 
+// TODO: Make this an app clip, do some research (nice to have)
+// TODO: Have a login feature, integrate with Firebase, Spark plan
+// TODO: Add an ad framework. AdMob (after Firebase)
+// TODO: Download a video file and store it in documents, put the video file on Firebase and have a link for it that you expose
+// -> Download that link, use AV
+
 struct MapView: View {
     @State private var searchText = ""
     
@@ -50,7 +56,7 @@ struct SearchingView: View {
     
     var body: some View {
         if isSearching {
-            BusinessesView(viewModel: viewModel, searchText: searchText)
+            BusinessListView(viewModel: viewModel, searchText: searchText)
         } else {
             map
         }

@@ -1,5 +1,5 @@
 //
-//  BusinessesView.swift
+//  BusinessListView.swift
 //  WhereToEat
 //
 //  Created by Zeynep on 11/11/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BusinessesView: View {
+struct BusinessListView: View {
     @State private var businesses: [Business] = []
     
     private let viewModel: InitialMapViewModel
@@ -23,7 +23,7 @@ struct BusinessesView: View {
             List {
                 ForEach(businesses, id: \.self) { business in
                     NavigationLink {
-                        BusinessView(business: business)
+                        BusinessView(business: business, viewModel: BusinessViewModel())
                     } label: {
                         Text(business.name)
                     }

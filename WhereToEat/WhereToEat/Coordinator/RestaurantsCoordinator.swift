@@ -6,7 +6,7 @@
 //
 
 final class RestaurantsCoordinator: Coordinator {
-    typealias view = BusinessesView
+    typealias view = BusinessListView
     
     let restClient: any RestClientProtocol
     private var searchText: String = ""
@@ -15,12 +15,12 @@ final class RestaurantsCoordinator: Coordinator {
         self.restClient = restClient
     }
     
-    func instantiate() -> BusinessesView? {
+    func instantiate() -> BusinessListView? {
         guard let viewModel = restClient as? InitialMapViewModel else { return nil }
-        return BusinessesView(viewModel: viewModel, searchText: searchText)
+        return BusinessListView(viewModel: viewModel, searchText: searchText)
     }
     
-    func setUpBusinessesView(searchText: String) -> BusinessesView? {
+    func setUpBusinessesView(searchText: String) -> BusinessListView? {
         self.searchText = searchText
         return instantiate()
     }

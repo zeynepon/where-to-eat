@@ -9,30 +9,48 @@ import SwiftUI
 
 struct BusinessView: View {
     private let business: Business
+    @ObservedObject private var viewModel: BusinessViewModel
     
-    init(business: Business) {
+    init(business: Business, viewModel: BusinessViewModel) {
         self.business = business
+        self.viewModel = viewModel
     }
     
     var body: some View {
         GeometryReader { geometry in
             NavigationStack {
-                Text(business.name)
-                    .font(.largeTitle)
-                businessInfo
-                AsyncImage(url: URL(string: business.image_url)) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image.resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                            .padding()
-                    case .failure:
-                        Image(systemName: "photo")
-                    @unknown default:
-                        EmptyView()
+                VStack(spacing: .zero) {
+                    Text(business.name)
+                        .font(.largeTitle)
+                        .bold()
+                        .fontDesign(.serif)
+                    businessInfo
+                    rating
+                    AsyncImage(url: URL(string: business.image_url)) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
+                                .padding()
+                        case .failure:
+                            Image(systemName: "photo")
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                }
+                .toolbar {
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button {
+                            viewModel.addBusiness(business: business)
+                            viewModel.updateFavourite()
+                        } label: {
+                            viewModel.isFavourite ? Image(systemName: "star.fill") : Image(systemName: "star")
+                        }
                     }
                 }
             }
@@ -61,9 +79,84 @@ struct BusinessView: View {
             .padding()
         }
     }
+    
+    @ViewBuilder
+    private var rating: some View {
+        // TODO: There's gotta be a better way to do this, find it
+        HStack {
+            if business.rating == 0 {
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+            } else if business.rating > 0 && business.rating < 1 {
+                Image(systemName: "star.leadinghalf.fill")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+            } else if business.rating == 1 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+            } else if business.rating > 1 && business.rating < 2 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.leadinghalf.fill")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+            } else if business.rating == 2 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star")
+                Image(systemName: "star")
+                Image(systemName: "star")
+            } else if business.rating > 2 && business.rating < 3 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.leadinghalf.fill")
+                Image(systemName: "star")
+                Image(systemName: "star")
+            } else if business.rating == 3 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star")
+                Image(systemName: "star")
+            } else if business.rating > 3 && business.rating < 4 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.leadinghalf.fill")
+                Image(systemName: "star")
+            } else if business.rating == 4 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star")
+            } else if business.rating > 4 && business.rating < 5 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.leadinghalf.fill")
+            } else if business.rating == 5 {
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+                Image(systemName: "star.fill")
+            }
+        }
+        .foregroundColor(.yellow)
+    }
 }
 
 #Preview {
-    let viewModel = InitialMapViewModel()
-    return BusinessView(business: viewModel.createMockBusiness())
+    let viewModel = BusinessViewModel()
+    return BusinessView(business: viewModel.createMockBusiness(), viewModel: viewModel)
 }
