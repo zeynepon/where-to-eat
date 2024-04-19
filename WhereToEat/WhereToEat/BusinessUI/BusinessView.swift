@@ -24,6 +24,7 @@ struct BusinessView: View {
                         .font(.largeTitle)
                         .bold()
                         .fontDesign(.serif)
+                        .multilineTextAlignment(.center)
                     businessInfo
                     rating
                     AsyncImage(url: URL(string: business.image_url)) { phase in
@@ -36,12 +37,14 @@ struct BusinessView: View {
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
                                 .padding()
+                                .overlay(.quinary, in: .rect(cornerRadii: RectangleCornerRadii(), style: .continuous))
                         case .failure:
                             Image(systemName: "photo")
                         @unknown default:
                             EmptyView()
                         }
                     }
+                    .padding()
                 }
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
@@ -57,7 +60,6 @@ struct BusinessView: View {
         }
     }
     
-    @ViewBuilder
     private var businessInfo: some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: .zero) {
@@ -78,6 +80,7 @@ struct BusinessView: View {
             }
             .padding()
         }
+        .padding()
     }
     
     @ViewBuilder

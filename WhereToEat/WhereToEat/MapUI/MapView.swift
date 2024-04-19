@@ -19,6 +19,8 @@ import CoreLocationUI
 
 struct MapView: View {
     @State private var searchText = ""
+    @ObservedObject private var locationManager = LocationManager()
+    private let viewModel: InitialMapViewModel
     
     private var searchResults: [String] {
         if searchText.isEmpty {
@@ -27,12 +29,7 @@ struct MapView: View {
             return viewModel.locationNames.filter { $0.localizedCaseInsensitiveContains(searchText) }
         }
     }
-    
-    
-    
-    @ObservedObject private var locationManager = LocationManager()
-    private let viewModel: InitialMapViewModel
-    
+
     public init(viewModel: InitialMapViewModel) {
         self.viewModel = viewModel
     }

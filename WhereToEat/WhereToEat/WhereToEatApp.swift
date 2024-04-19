@@ -5,6 +5,8 @@
 //  Created by Zeynep on 11/1/23.
 //
 
+// icon: <a target="_blank" href="https://icons8.com/illustrations/illustration/636007d77ae331000128d831">App</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
 import SwiftUI
 import FirebaseCore
 import FirebaseFirestore
