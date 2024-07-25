@@ -11,6 +11,8 @@ struct BusinessView: View {
     private let business: Business
     @ObservedObject private var viewModel: BusinessViewModel
     
+    @State private var isShowingWebView = false
+    
     init(business: Business, viewModel: BusinessViewModel) {
         self.business = business
         self.viewModel = viewModel
@@ -27,7 +29,7 @@ struct BusinessView: View {
                         .multilineTextAlignment(.center)
                     businessInfo
                     rating
-                    AsyncImage(url: URL(string: business.image_url)) { phase in
+                    AsyncImage(url: business.image_url) { phase in
                         switch phase {
                         case .empty:
                             ProgressView()
@@ -45,6 +47,8 @@ struct BusinessView: View {
                         }
                     }
                     .padding()
+                    Spacer()
+                    yelpLink
                 }
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
@@ -156,6 +160,36 @@ struct BusinessView: View {
             }
         }
         .foregroundColor(.yellow)
+    }
+    
+    private var yelpLink: some View {
+        Button {
+            isShowingWebView.toggle()
+        } label: {
+            HStack(spacing: 4) {
+                Text("View in ")
+                Image("yelpLogo")
+                    .resizable()
+                    .frame(width: 51.20, height: 24.92)
+                    .padding(.bottom, 6)
+            }
+        }
+        .padding(.vertical)
+        .fullScreenCover(isPresented: $isShowingWebView, content: {
+            VStack(spacing: .zero) {
+                HStack {
+                    Spacer()
+                    Button {
+                        isShowingWebView = false
+                    } label: {
+                        Image(systemName: "xmark")
+                            .padding(.horizontal)
+                            .bold()
+                    }
+                }
+                WebView(url: business.url)
+            }
+        })
     }
 }
 

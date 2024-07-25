@@ -24,9 +24,9 @@ public class BusinessViewModel: ObservableObject {
 public extension BusinessViewModel {
     func createMockBusiness() -> Business {
         Business(name: "Borough Market",
-                 image_url: "https://s3-media1.fl.yelpcdn.com/bphoto/r_vCRy6Cc3i425lsoawvrA/o.jpg",
+                 image_url: URL(string: "https://s3-media1.fl.yelpcdn.com/bphoto/r_vCRy6Cc3i425lsoawvrA/o.jpg"),
                  is_closed: false,
-                 url: "https://www.yelp.com/biz/borough-market-london-3?adjust_creative=RcwV6drVskI_uxj8EFdA6Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=RcwV6drVskI_uxj8EFdA6Q",
+                 url: URL(string: "https://www.yelp.com/biz/borough-market-london-3?adjust_creative=RcwV6drVskI_uxj8EFdA6Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=RcwV6drVskI_uxj8EFdA6Q"),
                  review_count: 1843,
                  categories: [Category(title: "Farmers Market"), Category(title: "Beer, Wine & Spirits")],
                  rating: 4.5,
