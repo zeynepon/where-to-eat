@@ -28,7 +28,7 @@ struct WhereToEatApp: App {
     var body: some Scene {
         WindowGroup {
             let viewModel = InitialMapViewModel()
-            MapView(viewModel: viewModel)
+            LaunchView(viewModel: viewModel)
         }
     }
 }

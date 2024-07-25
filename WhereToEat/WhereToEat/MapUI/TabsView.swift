@@ -1,5 +1,5 @@
 //
-//  InitialMapView.swift
+//  TabsView.swift
 //  WhereToEat
 //
 //  Created by Zeynep on 11/1/23.
@@ -17,46 +17,34 @@ import CoreLocationUI
 // TODO: Download a video file and store it in documents, put the video file on Firebase and have a link for it that you expose
 // -> Download that link, use AV
 
-struct MapView: View {
+struct LaunchView: View {
     @State private var searchText = ""
-    @ObservedObject private var locationManager = LocationManager()
-    private let viewModel: InitialMapViewModel
-    
-    private var searchResults: [String] {
-        if searchText.isEmpty {
-            return viewModel.locationNames
-        } else {
-            return viewModel.locationNames.filter { $0.localizedCaseInsensitiveContains(searchText) }
-        }
-    }
-
-    public init(viewModel: InitialMapViewModel) {
-        self.viewModel = viewModel
-    }
+    var viewModel: InitialMapViewModel
+    @StateObject var locationManager = LocationManager()
     
     var body: some View {
-        NavigationStack {
-            SearchingView(searchText: $searchText, viewModel: viewModel)
-        }
-        .searchable(text: $searchText, prompt: "Search for restaurants")
-        .onAppear {
-            locationManager.manager.requestWhenInUseAuthorization()
+        TabView {
+            MapViewRepresentable(coordinate: locationManager.location)
+                .tabItem {
+                    Image(systemName: "map")
+                    Text("Map")
+                }
+            SearchView(searchText: $searchText, viewModel: viewModel)
+                .tabItem {
+                    Image(systemName: "magnifyingglass.circle")
+                    Text("Search")
+                }
         }
     }
 }
 
-struct SearchingView: View {
-    @Environment(\.isSearching) private var isSearching
+struct SearchView: View {
     @Binding var searchText: String
     @State private var cameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12),span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
     let viewModel: InitialMapViewModel
     
     var body: some View {
-        if isSearching {
-            BusinessListView(viewModel: viewModel, searchText: searchText)
-        } else {
-            map
-        }
+        BusinessListView(viewModel: viewModel, searchText: $searchText)
     }
     
     @ViewBuilder
@@ -65,8 +53,4 @@ struct SearchingView: View {
             .navigationTitle("Where to Eat?")
             .navigationBarTitleDisplayMode(.inline)
     }
-}
-
-#Preview {
-    MapView(viewModel: InitialMapViewModel())
 }

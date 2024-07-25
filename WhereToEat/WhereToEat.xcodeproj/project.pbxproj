@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		212E29562C5242E100E71513 /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E29552C5242E100E71513 /* MapViewRepresentable.swift */; };
 		21655EF12B19EE7600B36557 /* RestaurantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF02B19EE7600B36557 /* RestaurantsCoordinator.swift */; };
 		21655EF32B19EE8C00B36557 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF22B19EE8C00B36557 /* Coordinator.swift */; };
 		21655EF52B19F5DB00B36557 /* RestClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF42B19F5DB00B36557 /* RestClientProtocol.swift */; };
@@ -16,7 +17,7 @@
 		218E60A92AFFE8020048E6B3 /* BusinessListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E60A82AFFE8020048E6B3 /* BusinessListView.swift */; };
 		218E60AB2AFFE8950048E6B3 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E60AA2AFFE8950048E6B3 /* BusinessView.swift */; };
 		2192D4C22AF2F12A00AD7531 /* WhereToEatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4C12AF2F12A00AD7531 /* WhereToEatApp.swift */; };
-		2192D4C42AF2F12A00AD7531 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4C32AF2F12A00AD7531 /* MapView.swift */; };
+		2192D4C42AF2F12A00AD7531 /* TabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4C32AF2F12A00AD7531 /* TabsView.swift */; };
 		2192D4C82AF2F12B00AD7531 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2192D4C72AF2F12B00AD7531 /* Assets.xcassets */; };
 		2192D4CC2AF2F12B00AD7531 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2192D4CB2AF2F12B00AD7531 /* Preview Assets.xcassets */; };
 		2192D4D62AF2F12B00AD7531 /* WhereToEatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4D52AF2F12B00AD7531 /* WhereToEatTests.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		212E29552C5242E100E71513 /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
 		21655EF02B19EE7600B36557 /* RestaurantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsCoordinator.swift; sourceTree = "<group>"; };
 		21655EF22B19EE8C00B36557 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		21655EF42B19F5DB00B36557 /* RestClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClientProtocol.swift; sourceTree = "<group>"; };
@@ -83,7 +85,7 @@
 		218E60AA2AFFE8950048E6B3 /* BusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessView.swift; sourceTree = "<group>"; };
 		2192D4BE2AF2F12A00AD7531 /* WhereToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2192D4C12AF2F12A00AD7531 /* WhereToEatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToEatApp.swift; sourceTree = "<group>"; };
-		2192D4C32AF2F12A00AD7531 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		2192D4C32AF2F12A00AD7531 /* TabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabsView.swift; sourceTree = "<group>"; };
 		2192D4C72AF2F12B00AD7531 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2192D4C92AF2F12B00AD7531 /* WhereToEat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WhereToEat.entitlements; sourceTree = "<group>"; };
 		2192D4CB2AF2F12B00AD7531 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -152,7 +154,8 @@
 		21655EF62B19FD4300B36557 /* MapUI */ = {
 			isa = PBXGroup;
 			children = (
-				2192D4C32AF2F12A00AD7531 /* MapView.swift */,
+				2192D4C32AF2F12A00AD7531 /* TabsView.swift */,
+				212E29552C5242E100E71513 /* MapViewRepresentable.swift */,
 			);
 			path = MapUI;
 			sourceTree = "<group>";
@@ -450,9 +453,10 @@
 				2174CA862AF68B8900714BDA /* InitialMapViewModel.swift in Sources */,
 				21655EF32B19EE8C00B36557 /* Coordinator.swift in Sources */,
 				218E60A92AFFE8020048E6B3 /* BusinessListView.swift in Sources */,
-				2192D4C42AF2F12A00AD7531 /* MapView.swift in Sources */,
+				2192D4C42AF2F12A00AD7531 /* TabsView.swift in Sources */,
 				219E44B82B16426700CBB1EC /* LocationManager.swift in Sources */,
 				21655EF12B19EE7600B36557 /* RestaurantsCoordinator.swift in Sources */,
+				212E29562C5242E100E71513 /* MapViewRepresentable.swift in Sources */,
 				21655EF52B19F5DB00B36557 /* RestClientProtocol.swift in Sources */,
 				2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */,
 				216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */,

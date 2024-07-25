@@ -8,7 +8,7 @@
 import MapKit
 import SwiftUI
 
-public class InitialMapViewModel: ObservableObject, RestClientProtocol {
+public class InitialMapViewModel: NSObject, ObservableObject, RestClientProtocol {
     public typealias FetchedData = Businesses
     
     // TODO: ID where you've used design patterns
@@ -23,10 +23,15 @@ public class InitialMapViewModel: ObservableObject, RestClientProtocol {
     public var locationNames: [String] {
         locations.map { $0.name }
     }
+    @Published public private(set) var region: MKCoordinateRegion?
+    @Published public private(set) var showUserLocation: Bool = false
     
     init(coordinator: RestaurantsCoordinator? = nil, locations: [MapLocation] = []) {
+        self.region = nil
         self.coordinator = coordinator
         self.locations = locations
+        
+        super.init()
     }
     
     public func addLocation(location: MapLocation) {
@@ -52,9 +57,5 @@ public class InitialMapViewModel: ObservableObject, RestClientProtocol {
         }
         
         return businesses
-    }
-    
-    func showRestaurants(searchText: String) -> BusinessListView? {
-        coordinator?.setUpBusinessesView(searchText: searchText)
     }
 }

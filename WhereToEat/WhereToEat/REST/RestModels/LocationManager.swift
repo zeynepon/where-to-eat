@@ -15,13 +15,23 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     override init() {
         super.init()
         manager.delegate = self
-    }
-    
-    func requestLocation() {
-        manager.requestLocation()
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        checkLocationAuthorisation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         location = locations.first?.coordinate
+    }
+    
+    func checkLocationAuthorisation() {
+        switch manager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            manager.startUpdatingLocation()
+        case .denied, .restricted:
+            break
+        default:
+            manager.requestWhenInUseAuthorization()
+            manager.startUpdatingLocation()
+        }
     }
 }

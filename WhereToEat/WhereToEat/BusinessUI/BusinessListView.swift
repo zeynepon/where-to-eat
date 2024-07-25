@@ -11,9 +11,9 @@ struct BusinessListView: View {
     @State private var businesses: [Business] = []
     
     private let viewModel: InitialMapViewModel
-    private var searchText: String = ""
+    private var searchText: Binding<String>
     
-    init(viewModel: InitialMapViewModel, searchText: String) {
+    init(viewModel: InitialMapViewModel, searchText: Binding<String>) {
         self.viewModel = viewModel
         self.searchText = searchText
     }
@@ -29,14 +29,15 @@ struct BusinessListView: View {
                     }
                 }
             }
-            .onChange(of: searchText, { oldValue, newValue in
+            .onChange(of: searchText.wrappedValue, { oldValue, newValue in
                 Task { @MainActor in
-                    businesses = (try? await viewModel.fetchData(searchText)?.businesses) ?? []
+                    businesses = (try? await viewModel.fetchData(searchText.wrappedValue)?.businesses) ?? []
                 }
             })
             .refreshable {
-                businesses = (try? await viewModel.fetchData(searchText)?.businesses) ?? []
+                businesses = (try? await viewModel.fetchData(searchText.wrappedValue)?.businesses) ?? []
             }
+            .searchable(text: searchText)
             .navigationTitle("Businesses")
             .navigationBarTitleDisplayMode(.inline)
         }
