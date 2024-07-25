@@ -7,5 +7,5 @@
 
 public protocol RestClientProtocol {
     associatedtype FetchedData: DataTypeProtocol
-    func fetchData(_ input: String) async throws -> FetchedData?
+    func fetchData(_ input: String) async throws -> FetchedData
 }

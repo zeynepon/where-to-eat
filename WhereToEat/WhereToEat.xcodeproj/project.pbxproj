@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		212E29562C5242E100E71513 /* MapViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E29552C5242E100E71513 /* MapViewRepresentable.swift */; };
+		212E295E2C52B35D00E71513 /* Publisher+SinkSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E295D2C52B35D00E71513 /* Publisher+SinkSupport.swift */; };
+		212E29612C52B7F100E71513 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 212E29602C52B7F100E71513 /* NetworkError.swift */; };
 		21655EF12B19EE7600B36557 /* RestaurantsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF02B19EE7600B36557 /* RestaurantsCoordinator.swift */; };
 		21655EF32B19EE8C00B36557 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF22B19EE8C00B36557 /* Coordinator.swift */; };
 		21655EF52B19F5DB00B36557 /* RestClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF42B19F5DB00B36557 /* RestClientProtocol.swift */; };
@@ -74,6 +76,8 @@
 
 /* Begin PBXFileReference section */
 		212E29552C5242E100E71513 /* MapViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewRepresentable.swift; sourceTree = "<group>"; };
+		212E295D2C52B35D00E71513 /* Publisher+SinkSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+SinkSupport.swift"; sourceTree = "<group>"; };
+		212E29602C52B7F100E71513 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		21655EF02B19EE7600B36557 /* RestaurantsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantsCoordinator.swift; sourceTree = "<group>"; };
 		21655EF22B19EE8C00B36557 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		21655EF42B19F5DB00B36557 /* RestClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClientProtocol.swift; sourceTree = "<group>"; };
@@ -151,6 +155,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		212E295C2C52B34600E71513 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				212E295D2C52B35D00E71513 /* Publisher+SinkSupport.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		212E295F2C52B7E100E71513 /* ErrorHandling */ = {
+			isa = PBXGroup;
+			children = (
+				212E29602C52B7F100E71513 /* NetworkError.swift */,
+			);
+			path = ErrorHandling;
+			sourceTree = "<group>";
+		};
 		21655EF62B19FD4300B36557 /* MapUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +255,8 @@
 				21B9F4842B5422110057E1B6 /* Business */,
 				21655EF72B19FD5900B36557 /* BusinessUI */,
 				2174CA842AF68B7D00714BDA /* Coordinator */,
+				212E295F2C52B7E100E71513 /* ErrorHandling */,
+				212E295C2C52B34600E71513 /* Helpers */,
 				21655EF62B19FD4300B36557 /* MapUI */,
 				21655EF82B19FD7500B36557 /* REST */,
 				2192D4CA2AF2F12B00AD7531 /* Preview Content */,
@@ -458,8 +480,10 @@
 				21655EF12B19EE7600B36557 /* RestaurantsCoordinator.swift in Sources */,
 				212E29562C5242E100E71513 /* MapViewRepresentable.swift in Sources */,
 				21655EF52B19F5DB00B36557 /* RestClientProtocol.swift in Sources */,
+				212E29612C52B7F100E71513 /* NetworkError.swift in Sources */,
 				2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */,
 				216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */,
+				212E295E2C52B35D00E71513 /* Publisher+SinkSupport.swift in Sources */,
 				21B9F4862B5422210057E1B6 /* BusinessViewModel.swift in Sources */,
 				2192D4C22AF2F12A00AD7531 /* WhereToEatApp.swift in Sources */,
 			);

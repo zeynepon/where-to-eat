@@ -18,7 +18,6 @@ import CoreLocationUI
 // -> Download that link, use AV
 
 struct LaunchView: View {
-    @State private var searchText = ""
     var viewModel: InitialMapViewModel
     @StateObject var locationManager = LocationManager()
     
@@ -29,7 +28,7 @@ struct LaunchView: View {
                     Image(systemName: "map")
                     Text("Map")
                 }
-            SearchView(searchText: $searchText, viewModel: viewModel)
+            SearchView(viewModel: viewModel)
                 .tabItem {
                     Image(systemName: "magnifyingglass.circle")
                     Text("Search")
@@ -39,18 +38,9 @@ struct LaunchView: View {
 }
 
 struct SearchView: View {
-    @Binding var searchText: String
-    @State private var cameraPosition = MapCameraPosition.region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 51.5, longitude: -0.12),span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)))
     let viewModel: InitialMapViewModel
     
     var body: some View {
-        BusinessListView(viewModel: viewModel, searchText: $searchText)
-    }
-    
-    @ViewBuilder
-    private var map: some View {
-        Map(position: $cameraPosition)
-            .navigationTitle("Where to Eat?")
-            .navigationBarTitleDisplayMode(.inline)
+        BusinessListView(viewModel: viewModel)
     }
 }

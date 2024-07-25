@@ -8,38 +8,62 @@
 import SwiftUI
 
 struct BusinessListView: View {
-    @State private var businesses: [Business] = []
+    @StateObject var viewModel: InitialMapViewModel
     
-    private let viewModel: InitialMapViewModel
-    private var searchText: Binding<String>
-    
-    init(viewModel: InitialMapViewModel, searchText: Binding<String>) {
-        self.viewModel = viewModel
-        self.searchText = searchText
+    init(viewModel: InitialMapViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
         NavigationStack {
             List {
-                ForEach(businesses, id: \.self) { business in
-                    NavigationLink {
-                        BusinessView(business: business, viewModel: BusinessViewModel())
-                    } label: {
-                        Text(business.name)
+                if let businesses = viewModel.businesses {
+                    ForEach(businesses, id: \.self) { business in
+                        NavigationLink {
+                            BusinessView(business: business, viewModel: BusinessViewModel())
+                        } label: {
+                            Text(business.name)
+                        }
                     }
+                } else if viewModel.showErrorScreen {
+                    businessListErrorView
                 }
             }
-            .onChange(of: searchText.wrappedValue, { oldValue, newValue in
-                Task { @MainActor in
-                    businesses = (try? await viewModel.fetchData(searchText.wrappedValue)?.businesses) ?? []
-                }
-            })
-            .refreshable {
-                businesses = (try? await viewModel.fetchData(searchText.wrappedValue)?.businesses) ?? []
-            }
-            .searchable(text: searchText)
+            .refreshable { await fetchBusinesses() }
+            .searchable(text: $viewModel.searchText)
             .navigationTitle("Businesses")
             .navigationBarTitleDisplayMode(.inline)
+        }
+    }
+    
+    private var businessListErrorView: some View {
+        VStack(spacing: .zero) {
+            Spacer()
+            HStack(spacing: .zero) {
+                Spacer()
+                VStack {
+                    Text("We are unable to fetch the data right now. Please try again.")
+                        .multilineTextAlignment(.center)
+                    Button {
+                        Task {
+                            await fetchBusinesses()
+                        }
+                    } label: {
+                        Text("Try again")
+                            .bold()
+                    }
+                }
+                Spacer()
+            }
+            Spacer()
+        }
+    }
+    
+    private func fetchBusinesses() async {
+        do {
+            viewModel.businesses = try await viewModel.fetchData(viewModel.searchText).businesses
+        } catch {
+            viewModel.showErrorScreen = true
         }
     }
 }

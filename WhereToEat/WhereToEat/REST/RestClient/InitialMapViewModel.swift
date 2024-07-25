@@ -7,24 +7,28 @@
 
 import MapKit
 import SwiftUI
+import Combine
 
+@MainActor
 public class InitialMapViewModel: NSObject, ObservableObject, RestClientProtocol {
     public typealias FetchedData = Businesses
     
     // TODO: ID where you've used design patterns
-    private enum NetworkError: Error {
-        case invalidServerResponse
-        case unsupportedJson
-    }
-    
+        
     weak var coordinator: RestaurantsCoordinator?
     
     public var locations: [MapLocation]
     public var locationNames: [String] {
         locations.map { $0.name }
     }
+    
+    @Published public var businesses: [Business]?
+    @Published public var searchText: String = ""
+    @Published public var showErrorScreen: Bool = false
     @Published public private(set) var region: MKCoordinateRegion?
     @Published public private(set) var showUserLocation: Bool = false
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init(coordinator: RestaurantsCoordinator? = nil, locations: [MapLocation] = []) {
         self.region = nil
@@ -32,15 +36,18 @@ public class InitialMapViewModel: NSObject, ObservableObject, RestClientProtocol
         self.locations = locations
         
         super.init()
+        observeSearchTextUpdates()
     }
     
     public func addLocation(location: MapLocation) {
         locations.append(location)
     }
     
-    public func fetchData(_ input: String) async throws -> Businesses? {
+    public func fetchData(_ input: String) async throws -> Businesses {
         // TODO: Fix warnings that have showed up in the console
-        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(input)") else { return nil }
+        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(input)") else {
+            throw NetworkError.invalidURL
+        }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer pVVq8q3TDb1qdoYtd7YUHKs2olodh9JhoFVylUw17EdPOA7e5gYziWnIiZ5fuTTUZJWqGJ6s7XstTsfwyHubZi3-jzhqjO1X0CuXMhhPdckzTVchO-N6osSQI7VHZXYx", forHTTPHeaderField: "Authorization")
@@ -57,5 +64,19 @@ public class InitialMapViewModel: NSObject, ObservableObject, RestClientProtocol
         }
         
         return businesses
+    }
+    
+    private func observeSearchTextUpdates() {
+        $searchText
+            .throttle(for: .seconds(0.5), scheduler: DispatchQueue.main, latest: true)
+            .sink { [weak self] newSearchText in
+                guard let self, newSearchText != "" else { return }
+                do {
+                    self.businesses = try await self.fetchData(newSearchText).businesses
+                } catch(let error) {
+                    self.showErrorScreen = true
+                }
+            }
+            .store(in: &cancellables)
     }
 }
