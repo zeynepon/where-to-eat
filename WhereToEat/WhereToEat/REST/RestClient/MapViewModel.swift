@@ -10,37 +10,21 @@ import SwiftUI
 import Combine
 
 @MainActor
-public class InitialMapViewModel: NSObject, ObservableObject, RestClientProtocol {
+public class MapViewModel: NSObject, ObservableObject, RestClientProtocol {
     public typealias FetchedData = Businesses
     
     // TODO: ID where you've used design patterns
-        
-    weak var coordinator: RestaurantsCoordinator?
-    
-    public var locations: [MapLocation]
-    public var locationNames: [String] {
-        locations.map { $0.name }
-    }
     
     @Published public var businesses: [Business]?
     @Published public var searchText: String = ""
     @Published public var showErrorScreen: Bool = false
-    @Published public private(set) var region: MKCoordinateRegion?
-    @Published public private(set) var showUserLocation: Bool = false
     
+    private let networkCredentials = NetworkCredentials()
     private var cancellables = Set<AnyCancellable>()
     
-    init(coordinator: RestaurantsCoordinator? = nil, locations: [MapLocation] = []) {
-        self.region = nil
-        self.coordinator = coordinator
-        self.locations = locations
-        
+    override init() {
         super.init()
         observeSearchTextUpdates()
-    }
-    
-    public func addLocation(location: MapLocation) {
-        locations.append(location)
     }
     
     public func fetchData(_ input: String) async throws -> Businesses {
@@ -50,7 +34,7 @@ public class InitialMapViewModel: NSObject, ObservableObject, RestClientProtocol
         }
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer pVVq8q3TDb1qdoYtd7YUHKs2olodh9JhoFVylUw17EdPOA7e5gYziWnIiZ5fuTTUZJWqGJ6s7XstTsfwyHubZi3-jzhqjO1X0CuXMhhPdckzTVchO-N6osSQI7VHZXYx", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(networkCredentials.apiKey)", forHTTPHeaderField: "Authorization")
         
         let (data, response) = try await URLSession.shared.data(for: request)
         

@@ -27,8 +27,9 @@ struct WhereToEatApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let viewModel = InitialMapViewModel()
-            LaunchView(viewModel: viewModel)
+            let favouritesViewModel = FavouritesViewModel()
+            let mapViewModel = MapViewModel()
+            LaunchView(favouritesViewModel: favouritesViewModel, mapViewModel: mapViewModel)
         }
     }
 }

@@ -9,20 +9,29 @@ import Foundation
 import FirebaseFirestore
 
 public class BusinessViewModel: ObservableObject {
-    let db = Firestore.firestore()
-    @Published public private(set) var isFavourite: Bool = false
+    let business: Business
+    private let favouritesViewModel: FavouritesViewModel
+    @Published private(set) var isFavourite: Bool
     
-    public func addBusiness(business: Business) {
-        db.collection("businesses").addDocument(data: ["name": business.name])
+    init(business: Business, favouritesViewModel: FavouritesViewModel) {
+        self.business = business
+        self.favouritesViewModel = favouritesViewModel
+        self.isFavourite = favouritesViewModel.isFavourite(business)
     }
     
-    public func updateFavourite() {
-        isFavourite.toggle()
+    public func toggleFavourite() {
+        if !isFavourite {
+            favouritesViewModel.addFavourite(business)
+            isFavourite = true
+        } else {
+            favouritesViewModel.removeFavourite(business)
+            isFavourite = false
+        }
     }
 }
 
 public extension BusinessViewModel {
-    func createMockBusiness() -> Business {
+    static func createMockBusiness() -> Business {
         Business(name: "Borough Market",
                  image_url: URL(string: "https://s3-media1.fl.yelpcdn.com/bphoto/r_vCRy6Cc3i425lsoawvrA/o.jpg"),
                  is_closed: false,

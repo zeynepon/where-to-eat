@@ -8,29 +8,31 @@
 import SwiftUI
 
 struct BusinessListView: View {
-    @StateObject var viewModel: InitialMapViewModel
+    @StateObject var mapViewModel: MapViewModel
+    private let favouritesViewModel: FavouritesViewModel
     
-    init(viewModel: InitialMapViewModel) {
-        self._viewModel = StateObject(wrappedValue: viewModel)
+    init(favouritesViewModel: FavouritesViewModel, mapViewModel: MapViewModel) {
+        self.favouritesViewModel = favouritesViewModel
+        self._mapViewModel = StateObject(wrappedValue: mapViewModel)
     }
     
     var body: some View {
         NavigationStack {
             List {
-                if let businesses = viewModel.businesses {
+                if let businesses = mapViewModel.businesses {
                     ForEach(businesses, id: \.self) { business in
                         NavigationLink {
-                            BusinessView(business: business, viewModel: BusinessViewModel())
+                            BusinessView(business: business, viewModel: BusinessViewModel(business: business, favouritesViewModel: favouritesViewModel))
                         } label: {
                             Text(business.name)
                         }
                     }
-                } else if viewModel.showErrorScreen {
+                } else if mapViewModel.showErrorScreen {
                     businessListErrorView
                 }
             }
             .refreshable { await fetchBusinesses() }
-            .searchable(text: $viewModel.searchText)
+            .searchable(text: $mapViewModel.searchText)
             .navigationTitle("Businesses")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -61,9 +63,9 @@ struct BusinessListView: View {
     
     private func fetchBusinesses() async {
         do {
-            viewModel.businesses = try await viewModel.fetchData(viewModel.searchText).businesses
+            mapViewModel.businesses = try await mapViewModel.fetchData(mapViewModel.searchText).businesses
         } catch {
-            viewModel.showErrorScreen = true
+            mapViewModel.showErrorScreen = true
         }
     }
 }

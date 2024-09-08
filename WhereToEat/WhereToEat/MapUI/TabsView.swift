@@ -18,7 +18,8 @@ import CoreLocationUI
 // -> Download that link, use AV
 
 struct LaunchView: View {
-    var viewModel: InitialMapViewModel
+    var favouritesViewModel: FavouritesViewModel
+    var mapViewModel: MapViewModel
     @StateObject var locationManager = LocationManager()
     
     var body: some View {
@@ -28,19 +29,25 @@ struct LaunchView: View {
                     Image(systemName: "map")
                     Text("Map")
                 }
-            SearchView(viewModel: viewModel)
+            SearchView(favouritesViewModel: favouritesViewModel, mapViewModel: mapViewModel)
                 .tabItem {
                     Image(systemName: "magnifyingglass.circle")
                     Text("Search")
+                }
+            FavouritesView(viewModel: favouritesViewModel)
+                .tabItem {
+                    Image(systemName: "star.fill")
+                    Text("Favourites")
                 }
         }
     }
 }
 
 struct SearchView: View {
-    let viewModel: InitialMapViewModel
+    let favouritesViewModel: FavouritesViewModel
+    let mapViewModel: MapViewModel
     
     var body: some View {
-        BusinessListView(viewModel: viewModel)
+        BusinessListView(favouritesViewModel: favouritesViewModel, mapViewModel: mapViewModel)
     }
 }

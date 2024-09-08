@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BusinessView: View {
-    private let business: Business
+    let business: Business
     @ObservedObject private var viewModel: BusinessViewModel
     
     @State private var isShowingWebView = false
@@ -27,6 +27,7 @@ struct BusinessView: View {
                         .bold()
                         .fontDesign(.serif)
                         .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
                     businessInfo
                     rating
                     AsyncImage(url: business.image_url) { phase in
@@ -53,8 +54,7 @@ struct BusinessView: View {
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
                         Button {
-                            viewModel.addBusiness(business: business)
-                            viewModel.updateFavourite()
+                            viewModel.toggleFavourite()
                         } label: {
                             viewModel.isFavourite ? Image(systemName: "star.fill") : Image(systemName: "star")
                         }
@@ -194,6 +194,6 @@ struct BusinessView: View {
 }
 
 #Preview {
-    let viewModel = BusinessViewModel()
-    return BusinessView(business: viewModel.createMockBusiness(), viewModel: viewModel)
+    let viewModel = BusinessViewModel(business: BusinessViewModel.createMockBusiness(), favouritesViewModel: FavouritesViewModel())
+    return BusinessView(business: viewModel.business, viewModel: viewModel)
 }
