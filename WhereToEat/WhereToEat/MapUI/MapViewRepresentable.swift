@@ -35,6 +35,7 @@ struct MapViewRepresentable: UIViewRepresentable {
 }
 
 class UserAnnotation: NSObject, MKAnnotation {
+    // TODO: Add annotations according to favourites
     let title: String?
     let subtitle: String?
     let coordinate: CLLocationCoordinate2D
@@ -50,7 +51,10 @@ class UserAnnotation: NSObject, MKAnnotation {
         let mock2 = UserAnnotation(title: "Falconwood", coordinate: CLLocationCoordinate2D(latitude: 51.459093419059485, longitude: 0.079453325742332))
         let mock3 = UserAnnotation(title: "Grove Park", coordinate: CLLocationCoordinate2D(latitude: 51.43174118011908, longitude: 0.021618390027477383))
         let mock4 = UserAnnotation(title: "Crystal Palace", coordinate: CLLocationCoordinate2D(latitude: 51.41817246879855, longitude: -0.07284696206531775))
-        return [mock1, mock2, mock3, mock4]
+        let mock5 = UserAnnotation(title: "Streatham Common", coordinate: CLLocationCoordinate2D(latitude: 51.41865731393407, longitude: -0.13591650845867925))
+        let mock6 = UserAnnotation(title: "Wimbledon Park", coordinate: CLLocationCoordinate2D(latitude: 51.434495021761805, longitude: -0.19941466059001567))
+        let mock7 = UserAnnotation(title: "Richmond", coordinate: CLLocationCoordinate2D(latitude: 51.463426824784484, longitude: -0.3016496434016886))
+        return [mock1, mock2, mock3, mock4, mock5, mock6, mock7]
     }
 }
 

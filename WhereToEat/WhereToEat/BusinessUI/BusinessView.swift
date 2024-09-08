@@ -20,47 +20,46 @@ struct BusinessView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            NavigationStack {
-                VStack(spacing: .zero) {
-                    Text(business.name)
-                        .font(.largeTitle)
-                        .bold()
-                        .fontDesign(.serif)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                    businessInfo
-                    rating
-                    AsyncImage(url: business.image_url) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                                .padding()
-                                .overlay(.quinary, in: .rect(cornerRadii: RectangleCornerRadii(), style: .continuous))
-                        case .failure:
-                            Image(systemName: "photo")
-                        @unknown default:
-                            EmptyView()
-                        }
+            VStack(spacing: .zero) {
+                Text(business.name)
+                    .font(.largeTitle)
+                    .bold()
+                    .fontDesign(.serif)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                businessInfo
+                rating
+                AsyncImage(url: business.image_url) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
+                            .padding()
+                            .overlay(.quinary, in: .rect(cornerRadii: RectangleCornerRadii(), style: .continuous))
+                    case .failure:
+                        Image(systemName: "photo")
+                    @unknown default:
+                        EmptyView()
                     }
-                    .padding()
-                    Spacer()
-                    yelpLink
                 }
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button {
-                            viewModel.toggleFavourite()
-                        } label: {
-                            viewModel.isFavourite ? Image(systemName: "star.fill") : Image(systemName: "star")
-                        }
+                .padding()
+                Spacer()
+                yelpLink
+            }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button {
+                        viewModel.toggleFavourite()
+                    } label: {
+                        viewModel.isFavourite ? Image(systemName: "star.fill") : Image(systemName: "star")
                     }
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

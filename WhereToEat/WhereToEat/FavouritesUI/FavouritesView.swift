@@ -30,15 +30,15 @@ struct FavouritesView: View {
                     }
                 }
                 .navigationTitle("Favourites")
-                .navigationBarTitleDisplayMode(.inline)
             }
         } else {
             VStack {
                 Text("You have no favourites at the moment")
+                    .bold()
                     .font(.title)
                     .multilineTextAlignment(.center)
                 Text("Add a favourite by searching restaurants in the search tab 🔎")
-                    .font(.subheadline)
+                    .font(.headline)
                     .multilineTextAlignment(.center)
             }
         }
