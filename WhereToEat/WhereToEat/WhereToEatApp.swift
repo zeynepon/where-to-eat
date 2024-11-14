@@ -28,8 +28,8 @@ struct WhereToEatApp: App {
     var body: some Scene {
         WindowGroup {
             let favouritesViewModel = FavouritesViewModel()
-            let mapViewModel = MapViewModel()
-            LaunchView(favouritesViewModel: favouritesViewModel, mapViewModel: mapViewModel)
+            let mapViewModel = MapViewModel(network: Network())
+            LaunchView(mapViewModel: mapViewModel, favouritesViewModel: favouritesViewModel)
         }
     }
 }

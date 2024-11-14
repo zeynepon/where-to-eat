@@ -15,7 +15,7 @@ public struct Businesses: Codable, DataTypeProtocol {
 
 public struct Business: Codable, Hashable {
     public var name: String
-    public var image_url: URL?
+    public var image_url: String?
     public var is_closed: Bool
     public var url: URL?
     public var review_count: Int

@@ -29,24 +29,26 @@ struct BusinessView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 businessInfo
                 rating
-                AsyncImage(url: business.image_url) { phase in
-                    switch phase {
-                    case .empty:
-                        ProgressView()
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                            .padding()
-                            .overlay(.quinary, in: .rect(cornerRadii: RectangleCornerRadii(), style: .continuous))
-                    case .failure:
-                        Image(systemName: "photo")
-                    @unknown default:
-                        EmptyView()
+                if let imageLink = URL(string: business.image_url ?? "") {
+                    AsyncImage(url: imageLink) { phase in
+                        switch phase {
+                        case .empty:
+                            ProgressView()
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
+                                .padding()
+                                .overlay(.quinary, in: .rect(cornerRadii: RectangleCornerRadii(), style: .continuous))
+                        case .failure:
+                            Image(systemName: "photo")
+                        @unknown default:
+                            EmptyView()
+                        }
                     }
+                    .padding()
                 }
-                .padding()
                 Spacer()
                 yelpLink
             }

@@ -10,7 +10,7 @@ import MapKit
 
 struct MapViewRepresentable: UIViewRepresentable {
     typealias UIViewType = MKMapView
-    let annotations: [UserAnnotation] = UserAnnotation.mock()
+    @Binding var favourites: [Business]
     let coordinate: CLLocationCoordinate2D?
     
     func makeCoordinator() -> MapViewCoordinator {
@@ -30,6 +30,13 @@ struct MapViewRepresentable: UIViewRepresentable {
             uiView.setRegion(region, animated: true)
         }
         
+        let annotations = favourites.map { business in
+            UserAnnotation(title: business.name,
+                           subtitle: business.location.zip_code,
+                           coordinate: CLLocationCoordinate2D(latitude: business.coordinates.latitude,
+                                                              longitude: business.coordinates.longitude))
+        }
+        
         uiView.addAnnotations(annotations)
     }
 }
@@ -44,17 +51,6 @@ class UserAnnotation: NSObject, MKAnnotation {
         self.title = title
         self.subtitle = subtitle
         self.coordinate = coordinate
-    }
-    
-    static func mock() -> [UserAnnotation] {
-        let mock1 = UserAnnotation(title: "Woolwich", coordinate: CLLocationCoordinate2D(latitude: 51.495200018068196, longitude: 0.07062379154450647))
-        let mock2 = UserAnnotation(title: "Falconwood", coordinate: CLLocationCoordinate2D(latitude: 51.459093419059485, longitude: 0.079453325742332))
-        let mock3 = UserAnnotation(title: "Grove Park", coordinate: CLLocationCoordinate2D(latitude: 51.43174118011908, longitude: 0.021618390027477383))
-        let mock4 = UserAnnotation(title: "Crystal Palace", coordinate: CLLocationCoordinate2D(latitude: 51.41817246879855, longitude: -0.07284696206531775))
-        let mock5 = UserAnnotation(title: "Streatham Common", coordinate: CLLocationCoordinate2D(latitude: 51.41865731393407, longitude: -0.13591650845867925))
-        let mock6 = UserAnnotation(title: "Wimbledon Park", coordinate: CLLocationCoordinate2D(latitude: 51.434495021761805, longitude: -0.19941466059001567))
-        let mock7 = UserAnnotation(title: "Richmond", coordinate: CLLocationCoordinate2D(latitude: 51.463426824784484, longitude: -0.3016496434016886))
-        return [mock1, mock2, mock3, mock4, mock5, mock6, mock7]
     }
 }
 

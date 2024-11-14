@@ -31,7 +31,7 @@ struct BusinessListView: View {
                     businessListErrorView
                 }
             }
-            .refreshable { await fetchBusinesses() }
+            .refreshable { fetchBusinesses() }
             .searchable(text: $mapViewModel.searchText)
             .navigationTitle("Businesses")
             .navigationBarTitleDisplayMode(.inline)
@@ -47,9 +47,7 @@ struct BusinessListView: View {
                     Text("We are unable to fetch the data right now. Please try again.")
                         .multilineTextAlignment(.center)
                     Button {
-                        Task {
-                            await fetchBusinesses()
-                        }
+                        fetchBusinesses()
                     } label: {
                         Text("Try again")
                             .bold()
@@ -61,9 +59,9 @@ struct BusinessListView: View {
         }
     }
     
-    private func fetchBusinesses() async {
+    private func fetchBusinesses() {
         do {
-            mapViewModel.businesses = try await mapViewModel.fetchData(mapViewModel.searchText).businesses
+            try mapViewModel.getBusinesses(searchText: mapViewModel.searchText)
         } catch {
             mapViewModel.showErrorScreen = true
         }

@@ -8,5 +8,5 @@
 import SwiftUI
 
 protocol Coordinator {
-    var restClient: any RestClientProtocol { get }
+    var network: any NetworkProtocol { get }
 }
