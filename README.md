@@ -1,7 +1,7 @@
 # where-to-eat
 Search for restaurants in your area and add the ones you want to save to your favourites, powered by Yelp.
 
-- Seamless map view will show your favourite:
+- Seamless map view will show your favourites:
   
 <img src="https://github.com/user-attachments/assets/0ac2c900-a69d-470b-9f2e-a525767695f8" width="300">
 
