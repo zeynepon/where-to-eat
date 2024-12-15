@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct LaunchView: View {
-    var mapViewModel: MapViewModel
+    var searchViewModel: SearchViewModel
     @ObservedObject var favouritesViewModel: FavouritesViewModel
-    @StateObject var locationManager = LocationManager()
+    var locationManager: LocationManager
     
     var body: some View {
         TabView {
@@ -19,7 +19,7 @@ struct LaunchView: View {
                     Image(systemName: "map")
                     Text("Map")
                 }
-            SearchView(favouritesViewModel: favouritesViewModel, mapViewModel: mapViewModel)
+            SearchView(favouritesViewModel: favouritesViewModel, searchViewModel: searchViewModel)
                 .tabItem {
                     Image(systemName: "magnifyingglass.circle")
                     Text("Search")
@@ -35,9 +35,9 @@ struct LaunchView: View {
 
 struct SearchView: View {
     let favouritesViewModel: FavouritesViewModel
-    let mapViewModel: MapViewModel
+    let searchViewModel: SearchViewModel
     
     var body: some View {
-        BusinessListView(favouritesViewModel: favouritesViewModel, mapViewModel: mapViewModel)
+        BusinessListView(favouritesViewModel: favouritesViewModel, searchViewModel: searchViewModel)
     }
 }

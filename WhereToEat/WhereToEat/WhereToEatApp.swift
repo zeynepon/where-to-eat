@@ -16,8 +16,10 @@ struct WhereToEatApp: App {
     var body: some Scene {
         WindowGroup {
             let favouritesViewModel = FavouritesViewModel()
-            let mapViewModel = MapViewModel(network: Network())
-            LaunchView(mapViewModel: mapViewModel, favouritesViewModel: favouritesViewModel)
+            let searchViewModel = SearchViewModel(network: Network())
+            LaunchView(searchViewModel: searchViewModel,
+                       favouritesViewModel: favouritesViewModel,
+                       locationManager: locationManager)
         }
     }
 }

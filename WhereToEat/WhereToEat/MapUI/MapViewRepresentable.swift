@@ -12,6 +12,7 @@ struct MapViewRepresentable: UIViewRepresentable {
     typealias UIViewType = MKMapView
     @Binding var favourites: [Business]
     let coordinate: CLLocationCoordinate2D?
+    @State private var userCentered: Bool = false
     
     func makeCoordinator() -> MapViewCoordinator {
         MapViewCoordinator(with: self)
@@ -20,15 +21,7 @@ struct MapViewRepresentable: UIViewRepresentable {
     func makeUIView(context: Context) -> MKMapView {
         let view = MKMapView(frame: .zero)
         view.delegate = context.coordinator
-        return view
-    }
-    
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        if let coordinate {
-            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            let region = MKCoordinateRegion(center: coordinate, span: span)
-            uiView.setRegion(region, animated: true)
-        }
+        view.showsUserLocation = true
         
         let annotations = favourites.map { business in
             UserAnnotation(title: business.name,
@@ -37,7 +30,20 @@ struct MapViewRepresentable: UIViewRepresentable {
                                                               longitude: business.coordinates.longitude))
         }
         
-        uiView.addAnnotations(annotations)
+        view.addAnnotations(annotations)
+        
+        return view
+    }
+    
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        if let coordinate, !userCentered {
+            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+            let region = MKCoordinateRegion(center: coordinate, span: span)
+            uiView.setRegion(region, animated: true)
+            Task { @MainActor in
+                userCentered.toggle()
+            }
+        }
     }
 }
 
@@ -62,6 +68,8 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
+        guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
+        
         let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "_customAnnotationView")
         annotationView.canShowCallout = true
         annotationView.image = UIImage(systemName: "fork.knife.circle.fill")

@@ -16,7 +16,7 @@
 		21655EF52B19F5DB00B36557 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21655EF42B19F5DB00B36557 /* NetworkProtocol.swift */; };
 		216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216EB8E02AF7EEEA003B99BC /* Businesses.swift */; };
 		2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA802AF68AA200714BDA /* MapLocation.swift */; };
-		2174CA862AF68B8900714BDA /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA852AF68B8900714BDA /* MapViewModel.swift */; };
+		2174CA862AF68B8900714BDA /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2174CA852AF68B8900714BDA /* SearchViewModel.swift */; };
 		21839E792C8DFCBD00654572 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839E782C8DFCBD00654572 /* FavouritesViewModel.swift */; };
 		21839E7C2C8DFCEF00654572 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839E7B2C8DFCEF00654572 /* FavouritesView.swift */; };
 		21839E7E2C8DFDF300654572 /* NetworkCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839E7D2C8DFDF300654572 /* NetworkCredentials.swift */; };
@@ -60,7 +60,7 @@
 		21655EF42B19F5DB00B36557 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		216EB8E02AF7EEEA003B99BC /* Businesses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Businesses.swift; sourceTree = "<group>"; };
 		2174CA802AF68AA200714BDA /* MapLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocation.swift; sourceTree = "<group>"; };
-		2174CA852AF68B8900714BDA /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		2174CA852AF68B8900714BDA /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		21839E782C8DFCBD00654572 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		21839E7B2C8DFCEF00654572 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		21839E7D2C8DFDF300654572 /* NetworkCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCredentials.swift; sourceTree = "<group>"; };
@@ -155,10 +155,18 @@
 			isa = PBXGroup;
 			children = (
 				21655EF42B19F5DB00B36557 /* NetworkProtocol.swift */,
-				2174CA852AF68B8900714BDA /* MapViewModel.swift */,
+				2174CA852AF68B8900714BDA /* SearchViewModel.swift */,
 				21839E7D2C8DFDF300654572 /* NetworkCredentials.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		216957042D0F0CDC00F1305D /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				219E44B72B16426700CBB1EC /* LocationManager.swift */,
+			);
+			path = Map;
 			sourceTree = "<group>";
 		};
 		216EB8DF2AF7EEDD003B99BC /* RestModels */ = {
@@ -166,7 +174,6 @@
 			children = (
 				2174CA802AF68AA200714BDA /* MapLocation.swift */,
 				216EB8E02AF7EEEA003B99BC /* Businesses.swift */,
-				219E44B72B16426700CBB1EC /* LocationManager.swift */,
 			);
 			path = RestModels;
 			sourceTree = "<group>";
@@ -227,6 +234,7 @@
 				21839E772C8DFC9D00654572 /* Favourites */,
 				21839E7A2C8DFCD700654572 /* FavouritesUI */,
 				212E295C2C52B34600E71513 /* Helpers */,
+				216957042D0F0CDC00F1305D /* Map */,
 				21655EF62B19FD4300B36557 /* MapUI */,
 				2192D4CA2AF2F12B00AD7531 /* Preview Content */,
 				21655EF82B19FD7500B36557 /* Network */,
@@ -407,7 +415,7 @@
 			files = (
 				218E60AB2AFFE8950048E6B3 /* BusinessView.swift in Sources */,
 				212E29632C52F59700E71513 /* WebView.swift in Sources */,
-				2174CA862AF68B8900714BDA /* MapViewModel.swift in Sources */,
+				2174CA862AF68B8900714BDA /* SearchViewModel.swift in Sources */,
 				21655EF32B19EE8C00B36557 /* Coordinator.swift in Sources */,
 				218E60A92AFFE8020048E6B3 /* BusinessListView.swift in Sources */,
 				2192D4C42AF2F12A00AD7531 /* TabsView.swift in Sources */,

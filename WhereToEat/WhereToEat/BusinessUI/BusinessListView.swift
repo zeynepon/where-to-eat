@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct BusinessListView: View {
-    @StateObject var mapViewModel: MapViewModel
+    @StateObject var searchViewModel: SearchViewModel
     private let favouritesViewModel: FavouritesViewModel
     
-    init(favouritesViewModel: FavouritesViewModel, mapViewModel: MapViewModel) {
+    init(favouritesViewModel: FavouritesViewModel, searchViewModel: SearchViewModel) {
         self.favouritesViewModel = favouritesViewModel
-        self._mapViewModel = StateObject(wrappedValue: mapViewModel)
+        self._searchViewModel = StateObject(wrappedValue: searchViewModel)
     }
     
     var body: some View {
         NavigationStack {
             List {
-                if let businesses = mapViewModel.businesses {
+                if let businesses = searchViewModel.businesses {
                     ForEach(businesses, id: \.self) { business in
                         NavigationLink {
                             BusinessView(business: business, viewModel: BusinessViewModel(business: business, favouritesViewModel: favouritesViewModel))
@@ -27,12 +27,12 @@ struct BusinessListView: View {
                             Text(business.name)
                         }
                     }
-                } else if mapViewModel.showErrorScreen {
+                } else if searchViewModel.showErrorScreen {
                     businessListErrorView
                 }
             }
             .refreshable { fetchBusinesses() }
-            .searchable(text: $mapViewModel.searchText)
+            .searchable(text: $searchViewModel.searchText)
             .navigationTitle("Businesses")
             .navigationBarTitleDisplayMode(.inline)
         }
@@ -61,9 +61,9 @@ struct BusinessListView: View {
     
     private func fetchBusinesses() {
         do {
-            try mapViewModel.getBusinesses(searchText: mapViewModel.searchText)
+            try searchViewModel.getBusinesses(searchText: searchViewModel.searchText)
         } catch {
-            mapViewModel.showErrorScreen = true
+            searchViewModel.showErrorScreen = true
         }
     }
 }
