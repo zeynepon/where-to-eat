@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FirebaseFirestore
 
 public class BusinessViewModel: ObservableObject {
     let business: Business
