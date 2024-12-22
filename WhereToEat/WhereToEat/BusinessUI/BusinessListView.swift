@@ -28,7 +28,7 @@ struct BusinessListView: View {
                     }
                 }
             }
-            .padding(.trailing, searchText == "" ? 0 : 4)
+            .padding(.trailing, searchText == "" ? 0 : nil)
             Spacer()
             VStack(spacing: .zero) {
                 switch searchViewModel.searchState {
