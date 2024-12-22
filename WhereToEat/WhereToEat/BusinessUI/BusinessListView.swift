@@ -19,7 +19,16 @@ struct BusinessListView: View {
     
     var body: some View {
         NavigationStack {
-            SearchViewRepresentable(searchText: $searchText, viewModel: searchViewModel)
+            HStack {
+                SearchViewRepresentable(searchText: $searchText, viewModel: searchViewModel)
+                if searchText != "" && searchViewModel.searchState == .empty {
+                    Button("Cancel") {
+                        searchText = ""
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                }
+            }
+            .padding(.trailing, searchText == "" ? 0 : 4)
             Spacer()
             VStack(spacing: .zero) {
                 switch searchViewModel.searchState {
