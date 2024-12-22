@@ -184,7 +184,7 @@ struct BusinessView: View {
                         isShowingWebView = false
                     } label: {
                         Image(systemName: "xmark")
-                            .padding(.horizontal)
+                            .padding()
                             .bold()
                     }
                 }

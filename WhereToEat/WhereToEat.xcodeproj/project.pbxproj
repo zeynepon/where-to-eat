@@ -20,6 +20,7 @@
 		21839E792C8DFCBD00654572 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839E782C8DFCBD00654572 /* FavouritesViewModel.swift */; };
 		21839E7C2C8DFCEF00654572 /* FavouritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839E7B2C8DFCEF00654572 /* FavouritesView.swift */; };
 		21839E7E2C8DFDF300654572 /* NetworkCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21839E7D2C8DFDF300654572 /* NetworkCredentials.swift */; };
+		21877E662D1889780042259C /* SearchViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21877E652D1889780042259C /* SearchViewRepresentable.swift */; };
 		218E60A92AFFE8020048E6B3 /* BusinessListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E60A82AFFE8020048E6B3 /* BusinessListView.swift */; };
 		218E60AB2AFFE8950048E6B3 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218E60AA2AFFE8950048E6B3 /* BusinessView.swift */; };
 		2192D4C22AF2F12A00AD7531 /* WhereToEatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4C12AF2F12A00AD7531 /* WhereToEatApp.swift */; };
@@ -65,6 +66,7 @@
 		21839E7B2C8DFCEF00654572 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
 		21839E7D2C8DFDF300654572 /* NetworkCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkCredentials.swift; sourceTree = "<group>"; };
 		218752A62BD2EDEC00AC189B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21877E652D1889780042259C /* SearchViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewRepresentable.swift; sourceTree = "<group>"; };
 		218E60A82AFFE8020048E6B3 /* BusinessListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessListView.swift; sourceTree = "<group>"; };
 		218E60AA2AFFE8950048E6B3 /* BusinessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessView.swift; sourceTree = "<group>"; };
 		2192D4BE2AF2F12A00AD7531 /* WhereToEat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereToEat.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 			children = (
 				218E60AA2AFFE8950048E6B3 /* BusinessView.swift */,
 				218E60A82AFFE8020048E6B3 /* BusinessListView.swift */,
+				21877E652D1889780042259C /* SearchViewRepresentable.swift */,
 			);
 			path = BusinessUI;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 				21839E7C2C8DFCEF00654572 /* FavouritesView.swift in Sources */,
 				21655EF52B19F5DB00B36557 /* NetworkProtocol.swift in Sources */,
 				212E29612C52B7F100E71513 /* NetworkError.swift in Sources */,
+				21877E662D1889780042259C /* SearchViewRepresentable.swift in Sources */,
 				2174CA812AF68AA200714BDA /* MapLocation.swift in Sources */,
 				216EB8E12AF7EEEA003B99BC /* Businesses.swift in Sources */,
 				212E295E2C52B35D00E71513 /* Publisher+SinkSupport.swift in Sources */,

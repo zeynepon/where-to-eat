@@ -9,18 +9,22 @@ import MapKit
 import SwiftUI
 import Combine
 
-@MainActor
 public class SearchViewModel: ObservableObject {
-    @Published public var businesses: [Business]?
-    @Published public var searchText: String = ""
-    @Published public var showErrorScreen: Bool = false
+    public enum SearchState {
+        case empty
+        case loading
+        case success
+        case failure
+    }
+    
+    @Published public private(set) var businesses: [Business]?
+    @Published public private(set) var searchState: SearchState = .empty
     
     private let network: any NetworkProtocol
     private var cancellables = Set<AnyCancellable>()
     
     init(network: some NetworkProtocol) {
         self.network = network
-        observeSearchTextUpdates()
     }
     
     func getBusinesses(searchText: String) throws {
@@ -29,17 +33,20 @@ public class SearchViewModel: ObservableObject {
         }
     }
     
-    private func observeSearchTextUpdates() {
-        $searchText
-            .throttle(for: .seconds(0.5), scheduler: DispatchQueue.main, latest: true)
-            .sink { [weak self] newSearchText in
-                guard let self, newSearchText != "" else { return }
-                do {
-                    try self.getBusinesses(searchText: newSearchText)
-                } catch {
-                    self.showErrorScreen = true
-                }
+    func evaluateSearchState(searchText: String) {
+        Task { @MainActor in
+            searchState = .loading
+            do {
+                let businesses = try await network.fetchBusinesses(searchText).businesses
+                self.businesses = businesses
+                searchState = .success
+            } catch {
+                searchState = .failure
             }
-            .store(in: &cancellables)
+        }
+    }
+    
+    func setEmptySearchState() {
+        searchState = .empty
     }
 }
