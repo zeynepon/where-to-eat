@@ -44,6 +44,32 @@ struct MapViewRepresentable: UIViewRepresentable {
                 userCentered.toggle()
             }
         }
+        
+        let annotations = uiView.annotations.compactMap({ $0 as? UserAnnotation })
+        guard annotations.count == favorites.count else {
+            updateAnnotations(uiView: uiView, annotations: annotations)
+            return
+        }
+    }
+    
+    private func updateAnnotations(uiView: MKMapView, annotations: [UserAnnotation]) {
+        let annotationTitles = annotations.map { $0.title }
+        let favoritesTitles = favorites.map { $0.name }
+        if annotationTitles.count > favoritesTitles.count {
+            let titlesToRemove = annotationTitles.filter { favoritesTitles.contains($0 ?? "") }
+            let annotationsToRemove = annotations.filter { titlesToRemove.contains($0.title) }
+            uiView.removeAnnotations(annotationsToRemove)
+        } else {
+            let titlesToAdd = favoritesTitles.filter { !annotationTitles.contains($0) }
+            let favoritesToAdd = favorites.filter { titlesToAdd.contains($0.name) }
+            let annotationsToAdd = favoritesToAdd.map { business in
+                UserAnnotation(title: business.name,
+                               subtitle: business.location.zip_code,
+                               coordinate: CLLocationCoordinate2D(latitude: business.coordinates.latitude,
+                                                                  longitude: business.coordinates.longitude))
+            }
+            uiView.addAnnotations(annotationsToAdd)
+        }
     }
 }
 
