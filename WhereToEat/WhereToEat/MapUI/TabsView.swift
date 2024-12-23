@@ -9,22 +9,22 @@ import SwiftUI
 
 struct LaunchView: View {
     var searchViewModel: SearchViewModel
-    @ObservedObject var favouritesViewModel: FavouritesViewModel
+    @ObservedObject var favoritesViewModel: FavoritesViewModel
     var locationManager: LocationManager
     
     var body: some View {
         TabView {
-            MapViewRepresentable(favourites: $favouritesViewModel.favourites, coordinate: locationManager.location)
+            MapViewRepresentable(favorites: $favoritesViewModel.favorites, coordinate: locationManager.location)
                 .tabItem {
                     Image(systemName: "map")
                     Text("Map")
                 }
-            SearchView(favouritesViewModel: favouritesViewModel, searchViewModel: searchViewModel)
+            SearchView(favoritesViewModel: favoritesViewModel, searchViewModel: searchViewModel)
                 .tabItem {
                     Image(systemName: "magnifyingglass.circle")
                     Text("Search")
                 }
-            FavouritesView(viewModel: favouritesViewModel)
+            FavoritesView(viewModel: favoritesViewModel)
                 .tabItem {
                     Image(systemName: "star.fill")
                     Text("Favourites")
@@ -34,10 +34,10 @@ struct LaunchView: View {
 }
 
 struct SearchView: View {
-    let favouritesViewModel: FavouritesViewModel
+    let favoritesViewModel: FavoritesViewModel
     let searchViewModel: SearchViewModel
     
     var body: some View {
-        BusinessListView(favouritesViewModel: favouritesViewModel, searchViewModel: searchViewModel)
+        BusinessListView(favoritesViewModel: favoritesViewModel, searchViewModel: searchViewModel)
     }
 }

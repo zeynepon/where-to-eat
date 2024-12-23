@@ -9,21 +9,21 @@ import Foundation
 
 public class BusinessViewModel: ObservableObject {
     let business: Business
-    private let favouritesViewModel: FavouritesViewModel
+    private let favoritesViewModel: FavoritesViewModel
     @Published private(set) var isFavourite: Bool
     
-    init(business: Business, favouritesViewModel: FavouritesViewModel) {
+    init(business: Business, favoritesViewModel: FavoritesViewModel) {
         self.business = business
-        self.favouritesViewModel = favouritesViewModel
-        self.isFavourite = favouritesViewModel.isFavourite(business)
+        self.favoritesViewModel = favoritesViewModel
+        self.isFavourite = favoritesViewModel.isFavorite(business)
     }
     
     public func toggleFavourite() {
         if !isFavourite {
-            favouritesViewModel.addFavourite(business)
+            favoritesViewModel.addFavorite(business)
             isFavourite = true
         } else {
-            favouritesViewModel.removeFavourite(business)
+            favoritesViewModel.removeFavorite(business)
             isFavourite = false
         }
     }

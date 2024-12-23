@@ -15,10 +15,10 @@ struct WhereToEatApp: App {
     
     var body: some Scene {
         WindowGroup {
-            let favouritesViewModel = FavouritesViewModel()
+            let favoritesViewModel = FavoritesViewModel()
             let searchViewModel = SearchViewModel(network: Network())
             LaunchView(searchViewModel: searchViewModel,
-                       favouritesViewModel: favouritesViewModel,
+                       favoritesViewModel: favoritesViewModel,
                        locationManager: locationManager)
         }
     }

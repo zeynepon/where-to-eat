@@ -1,5 +1,5 @@
 //
-//  FavouritesView.swift
+//  FavoritesView.swift
 //  WhereToEat
 //
 //  Created by Zeynep on 08/09/2024.
@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-struct FavouritesView: View {
-    @ObservedObject private var viewModel: FavouritesViewModel
+struct FavoritesView: View {
+    @ObservedObject private var viewModel: FavoritesViewModel
     
-    init(viewModel: FavouritesViewModel) {
+    init(viewModel: FavoritesViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        if !viewModel.favourites.isEmpty {
+        if !viewModel.favorites.isEmpty {
             NavigationStack {
                 List {
-                    ForEach(viewModel.favourites, id: \.self) { favourite in
+                    ForEach(viewModel.favorites, id: \.self) { favorite in
                         NavigationLink {
-                            BusinessView(business: favourite, viewModel: BusinessViewModel(business: favourite, favouritesViewModel: viewModel))
+                            BusinessView(business: favorite, viewModel: BusinessViewModel(business: favorite, favoritesViewModel: viewModel))
                         } label: {
-                            Text(favourite.name)
+                            Text(favorite.name)
                         }
                     }
                     .onDelete { indexSet in
@@ -36,9 +36,11 @@ struct FavouritesView: View {
                 Text("You have no favourites at the moment")
                     .bold()
                     .font(.title)
+                    .fontDesign(.serif)
                     .multilineTextAlignment(.center)
                 Text("Add a favourite by searching restaurants in the search tab 🔎")
                     .font(.headline)
+                    .fontDesign(.serif)
                     .multilineTextAlignment(.center)
             }
         }
@@ -46,5 +48,5 @@ struct FavouritesView: View {
 }
 
 #Preview {
-    FavouritesView(viewModel: FavouritesViewModel())
+    FavoritesView(viewModel: FavoritesViewModel())
 }

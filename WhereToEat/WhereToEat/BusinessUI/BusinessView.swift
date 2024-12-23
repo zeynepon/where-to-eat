@@ -195,6 +195,6 @@ struct BusinessView: View {
 }
 
 #Preview {
-    let viewModel = BusinessViewModel(business: BusinessViewModel.createMockBusiness(), favouritesViewModel: FavouritesViewModel())
+    let viewModel = BusinessViewModel(business: BusinessViewModel.createMockBusiness(), favoritesViewModel: FavoritesViewModel())
     return BusinessView(business: viewModel.business, viewModel: viewModel)
 }

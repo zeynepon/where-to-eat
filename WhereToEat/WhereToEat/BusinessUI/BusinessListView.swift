@@ -11,10 +11,10 @@ struct BusinessListView: View {
     @StateObject var searchViewModel: SearchViewModel
     @State private var searchText: String = ""
     @State private var isKeyboardShown: Bool = false
-    private let favouritesViewModel: FavouritesViewModel
+    private let favoritesViewModel: FavoritesViewModel
     
-    init(favouritesViewModel: FavouritesViewModel, searchViewModel: SearchViewModel) {
-        self.favouritesViewModel = favouritesViewModel
+    init(favoritesViewModel: FavoritesViewModel, searchViewModel: SearchViewModel) {
+        self.favoritesViewModel = favoritesViewModel
         self._searchViewModel = StateObject(wrappedValue: searchViewModel)
     }
     
@@ -55,7 +55,7 @@ struct BusinessListView: View {
             if let businesses = searchViewModel.businesses {
                 ForEach(businesses, id: \.self) { business in
                     NavigationLink {
-                        BusinessView(business: business, viewModel: BusinessViewModel(business: business, favouritesViewModel: favouritesViewModel))
+                        BusinessView(business: business, viewModel: BusinessViewModel(business: business, favoritesViewModel: favoritesViewModel))
                     } label: {
                         Text(business.name)
                     }

@@ -10,7 +10,7 @@ import MapKit
 
 struct MapViewRepresentable: UIViewRepresentable {
     typealias UIViewType = MKMapView
-    @Binding var favourites: [Business]
+    @Binding var favorites: [Business]
     let coordinate: CLLocationCoordinate2D?
     @State private var userCentered: Bool = false
     
@@ -23,7 +23,7 @@ struct MapViewRepresentable: UIViewRepresentable {
         view.delegate = context.coordinator
         view.showsUserLocation = true
         
-        let annotations = favourites.map { business in
+        let annotations = favorites.map { business in
             UserAnnotation(title: business.name,
                            subtitle: business.location.zip_code,
                            coordinate: CLLocationCoordinate2D(latitude: business.coordinates.latitude,
