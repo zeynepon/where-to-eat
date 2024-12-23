@@ -10,6 +10,7 @@ import SwiftUI
 struct BusinessListView: View {
     @StateObject var searchViewModel: SearchViewModel
     @State private var searchText: String = ""
+    @State private var isKeyboardShown: Bool = false
     private let favouritesViewModel: FavouritesViewModel
     
     init(favouritesViewModel: FavouritesViewModel, searchViewModel: SearchViewModel) {
@@ -19,18 +20,10 @@ struct BusinessListView: View {
     
     var body: some View {
         NavigationStack {
-            HStack {
-                SearchViewRepresentable(searchText: $searchText, viewModel: searchViewModel)
-                if searchText != "" && searchViewModel.searchState == .empty {
-                    Button("Cancel") {
-                        searchText = ""
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
-                }
-            }
-            .padding(.trailing, searchText == "" ? 0 : nil)
-            Spacer()
             VStack(spacing: .zero) {
+                searchBar
+                    .padding(.trailing, isKeyboardShown ? nil : 0)
+                Spacer()
                 switch searchViewModel.searchState {
                 case .empty:
                     emptyStateView
@@ -41,15 +34,18 @@ struct BusinessListView: View {
                 case .failure:
                     businessListErrorView
                 }
+                Spacer()
             }
-            .navigationTitle("Businesses")
+            .navigationTitle("Search")
             .navigationBarTitleDisplayMode(.inline)
-            Spacer()
         }
         .onChange(of: searchText) { oldValue, newValue in
             if searchText == "" {
                 searchViewModel.setEmptySearchState()
             }
+        }
+        .onReceive(keyboardPublisher) { newValue in
+            isKeyboardShown = newValue
         }
     }
     
@@ -109,5 +105,18 @@ struct BusinessListView: View {
                 .scaleEffect(1.5)
             Text("Loading restaurants...")
         }
+    }
+    
+    private var searchBar: some View {
+        HStack {
+            SearchViewRepresentable(searchText: $searchText, viewModel: searchViewModel)
+            if isKeyboardShown {
+                Button("Cancel") {
+                    searchText = ""
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+            }
+        }
+        .background(searchBarBackgroundColor)
     }
 }
