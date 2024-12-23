@@ -117,6 +117,5 @@ struct BusinessListView: View {
                 }
             }
         }
-        .background(searchBarBackgroundColor)
     }
 }
