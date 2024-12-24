@@ -8,17 +8,42 @@
 import Foundation
 
 public class BusinessViewModel: ObservableObject {
-    let business: Business
-    private let favoritesViewModel: FavoritesViewModel
-    @Published private(set) var isFavourite: Bool
+    enum BusinessDetailsLoadingState {
+        case loading
+        case success
+        case failure(error: NetworkError)
+    }
     
-    init(business: Business, favoritesViewModel: FavoritesViewModel) {
+    let business: Business
+    private(set) var businessDetails: BusinessDetails?
+    private let favoritesViewModel: FavoritesViewModel
+    private let network: NetworkProtocol
+    
+    @Published private(set) var businessDetailsLoadingState: BusinessDetailsLoadingState?
+    @Published private(set) var isFavourite: Bool
+    @Published private(set) var shouldShowBusinessDetailsError: Bool = false
+    
+    init(business: Business, favoritesViewModel: FavoritesViewModel, network: NetworkProtocol = Network()) {
         self.business = business
         self.favoritesViewModel = favoritesViewModel
+        self.network = network
         self.isFavourite = favoritesViewModel.isFavorite(business)
     }
     
-    public func toggleFavourite() {
+    @MainActor
+    func getBusinessDetails() async {
+        businessDetailsLoadingState = .loading
+        do {
+            businessDetails = try await network.fetchBusinessDetails(businessAlias: business.alias)
+            businessDetailsLoadingState = .success
+        } catch let error {
+            if let networkError = error as? NetworkError {
+                businessDetailsLoadingState = .failure(error: networkError)
+            }
+        }
+    }
+    
+    func toggleFavourite() {
         if !isFavourite {
             favoritesViewModel.addFavorite(business)
             isFavourite = true
@@ -29,9 +54,10 @@ public class BusinessViewModel: ObservableObject {
     }
 }
 
-public extension BusinessViewModel {
+extension BusinessViewModel {
     static func createMockBusiness() -> Business {
         Business(name: "Borough Market",
+                 alias: "borough-market-london-3",
                  image_url: "https://s3-media1.fl.yelpcdn.com/bphoto/r_vCRy6Cc3i425lsoawvrA/o.jpg",
                  is_closed: false,
                  url: URL(string: "https://www.yelp.com/biz/borough-market-london-3?adjust_creative=RcwV6drVskI_uxj8EFdA6Q&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=RcwV6drVskI_uxj8EFdA6Q"),

@@ -62,6 +62,9 @@ struct BusinessView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .task {
+                await viewModel.getBusinessDetails()
+            }
         }
     }
     
@@ -91,6 +94,7 @@ struct BusinessView: View {
     @ViewBuilder
     private var rating: some View {
         // TODO: There's gotta be a better way to do this, find it
+        // https://jacobzivandesign.com/technology/five-star-rating/
         HStack {
             if business.rating == 0 {
                 Image(systemName: "star")

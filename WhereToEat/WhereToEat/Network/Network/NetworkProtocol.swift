@@ -7,22 +7,31 @@
 
 import Foundation
 
-public protocol NetworkProtocol {
+protocol NetworkProtocol {
+    var networkCredentials: NetworkCredentialsProtocol { get }
+    var session: URLSession { get }
+    
     func fetchBusinesses(_ searchText: String) async throws -> Businesses
+    func fetchBusinessDetails(businessAlias: String) async throws -> BusinessDetails
 }
 
 class Network: NetworkProtocol {
-    private let networkCredentials = NetworkCredentials()
+    let networkCredentials: any NetworkCredentialsProtocol
+    let session = URLSession.shared
+    
+    init(networkCredentials: some NetworkCredentialsProtocol = NetworkCredentials()) {
+        self.networkCredentials = networkCredentials
+    }
     
     public func fetchBusinesses(_ searchText: String) async throws -> Businesses {
-        guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(searchText)") else {
+        guard let url = URL(string: "\(networkCredentials.baseURL)search?term=food&location=\(searchText)") else {
             throw NetworkError.invalidURL
         }
-        var request = URLRequest(url: url)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(networkCredentials.apiKey)", forHTTPHeaderField: "Authorization")
         
-        let (data, response) = try await URLSession.shared.data(for: request)
+        var request = URLRequest(url: url)
+        networkCredentials.setRequestValues(for: &request)
+        
+        let (data, response) = try await session.data(for: request)
 
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidServerResponse
@@ -37,5 +46,30 @@ class Network: NetworkProtocol {
         }
         
         return businesses
+    }
+    
+    func fetchBusinessDetails(businessAlias: String) async throws -> BusinessDetails {
+        guard let url = URL(string: "\(networkCredentials.baseURL)\(businessAlias)") else {
+            throw NetworkError.invalidURL
+        }
+        
+        var request = URLRequest(url: url)
+        networkCredentials.setRequestValues(for: &request)
+        
+        let (data, response) = try await session.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw NetworkError.invalidServerResponse
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw httpResponse.statusCode == 400 ? NetworkError.locationNotFound : NetworkError.invalidServerResponse
+        }
+        
+        guard let businessDetails = try JSONDecoder().decode(BusinessDetails?.self, from: data) else {
+            throw NetworkError.unsupportedJson
+        }
+        
+        return businessDetails
     }
 }

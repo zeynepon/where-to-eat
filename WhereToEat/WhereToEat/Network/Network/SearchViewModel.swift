@@ -31,8 +31,7 @@ class SearchViewModel: ObservableObject {
         Task { @MainActor in
             searchState = .loading
             do {
-                let businesses = try await network.fetchBusinesses(searchText).businesses
-                self.businesses = businesses
+                businesses = try await network.fetchBusinesses(searchText).businesses
                 searchState = .success
             } catch let error as NetworkError {
                 searchState = .failure(error: error)
