@@ -27,12 +27,6 @@ class SearchViewModel: ObservableObject {
         self.network = network
     }
     
-    func getBusinesses(searchText: String) throws {
-        Task { @MainActor in
-            businesses = try await network.fetchBusinesses(searchText).businesses
-        }
-    }
-    
     func evaluateSearchState(searchText: String) {
         Task { @MainActor in
             searchState = .loading

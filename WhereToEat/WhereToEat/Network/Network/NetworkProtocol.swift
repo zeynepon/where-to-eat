@@ -15,7 +15,6 @@ class Network: NetworkProtocol {
     private let networkCredentials = NetworkCredentials()
     
     public func fetchBusinesses(_ searchText: String) async throws -> Businesses {
-        // TODO: Fix warnings that have showed up in the console
         guard let url = URL(string: "https://api.yelp.com/v3/businesses/search?term=food&location=\(searchText)") else {
             throw NetworkError.invalidURL
         }

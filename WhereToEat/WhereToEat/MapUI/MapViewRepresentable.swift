@@ -74,7 +74,6 @@ struct MapViewRepresentable: UIViewRepresentable {
 }
 
 class UserAnnotation: NSObject, MKAnnotation {
-    // TODO: Add annotations according to favourites
     let title: String?
     let subtitle: String?
     let coordinate: CLLocationCoordinate2D
