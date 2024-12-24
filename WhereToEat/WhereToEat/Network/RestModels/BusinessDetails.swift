@@ -9,8 +9,8 @@ import Foundation
 
 struct BusinessDetails: Decodable {
     var is_closed: Bool
-    var photos: [URL?]
-    var hours: Hours
+    var photos: [URL]?
+    var hours: [Hours]
 }
 
 struct Hours: Decodable {
