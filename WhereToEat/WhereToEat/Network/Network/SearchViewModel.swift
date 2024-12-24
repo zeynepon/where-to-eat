@@ -9,16 +9,16 @@ import MapKit
 import SwiftUI
 import Combine
 
-public class SearchViewModel: ObservableObject {
-    public enum SearchState {
+class SearchViewModel: ObservableObject {
+    enum SearchState {
         case empty
         case loading
         case success
-        case failure
+        case failure(error: NetworkError)
     }
     
-    @Published public private(set) var businesses: [Business]?
-    @Published public private(set) var searchState: SearchState = .empty
+    @Published private(set) var businesses: [Business]?
+    @Published private(set) var searchState: SearchState = .empty
     
     private let network: any NetworkProtocol
     private var cancellables = Set<AnyCancellable>()
@@ -40,8 +40,8 @@ public class SearchViewModel: ObservableObject {
                 let businesses = try await network.fetchBusinesses(searchText).businesses
                 self.businesses = businesses
                 searchState = .success
-            } catch {
-                searchState = .failure
+            } catch let error as NetworkError {
+                searchState = .failure(error: error)
             }
         }
     }

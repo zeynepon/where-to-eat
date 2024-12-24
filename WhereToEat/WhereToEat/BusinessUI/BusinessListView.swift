@@ -31,8 +31,8 @@ struct BusinessListView: View {
                     progressView
                 case .success:
                     businessListView
-                case .failure:
-                    businessListErrorView
+                case .failure(let error):
+                    businessListErrorView(error: error)
                 }
                 Spacer()
             }
@@ -65,27 +65,6 @@ struct BusinessListView: View {
         .padding(.top, -16)
     }
     
-    private var businessListErrorView: some View {
-        VStack(spacing: .zero) {
-            Spacer()
-            HStack(spacing: .zero) {
-                Spacer()
-                VStack {
-                    Text("We are unable to fetch the data right now. Please try again.")
-                        .multilineTextAlignment(.center)
-                    Button {
-                        searchViewModel.evaluateSearchState(searchText: searchText)
-                    } label: {
-                        Text("Try again")
-                            .bold()
-                    }
-                }
-                Spacer()
-            }
-            Spacer()
-        }
-    }
-    
     @ViewBuilder
     private var emptyStateView: some View {
         VStack(spacing: 4) {
@@ -116,6 +95,27 @@ struct BusinessListView: View {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
             }
+        }
+    }
+    
+    private func businessListErrorView(error: NetworkError) -> some View {
+        VStack(spacing: .zero) {
+            Spacer()
+            HStack(spacing: .zero) {
+                Spacer()
+                VStack {
+                    Text(error.description)
+                        .multilineTextAlignment(.center)
+                    Button {
+                        searchViewModel.evaluateSearchState(searchText: searchText)
+                    } label: {
+                        Text("Try again")
+                            .bold()
+                    }
+                }
+                Spacer()
+            }
+            Spacer()
         }
     }
 }

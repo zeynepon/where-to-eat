@@ -24,10 +24,13 @@ class Network: NetworkProtocol {
         request.setValue("Bearer \(networkCredentials.apiKey)", forHTTPHeaderField: "Authorization")
         
         let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse,
-              httpResponse.statusCode == 200 else {
+
+        guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidServerResponse
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw httpResponse.statusCode == 400 ? NetworkError.locationNotFound : NetworkError.invalidServerResponse
         }
         
         guard let businesses = try JSONDecoder().decode(Businesses?.self, from: data) else {
