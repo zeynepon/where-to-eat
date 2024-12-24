@@ -56,7 +56,7 @@ struct MapViewRepresentable: UIViewRepresentable {
         let annotationTitles = annotations.map { $0.title }
         let favoritesTitles = favorites.map { $0.name }
         if annotationTitles.count > favoritesTitles.count {
-            let titlesToRemove = annotationTitles.filter { favoritesTitles.contains($0 ?? "") }
+            let titlesToRemove = annotationTitles.filter { !favoritesTitles.contains($0 ?? "") }
             let annotationsToRemove = annotations.filter { titlesToRemove.contains($0.title) }
             uiView.removeAnnotations(annotationsToRemove)
         } else {
