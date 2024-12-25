@@ -10,15 +10,16 @@ import SwiftUI
 struct BusinessView: View {
     let business: Business
     
-    @ObservedObject private var viewModel: BusinessViewModel
+    @StateObject private var viewModel: BusinessViewModel
     @State private var isShowingWebView = false
     
     init(business: Business, viewModel: BusinessViewModel) {
         self.business = business
-        self.viewModel = viewModel
+        self._viewModel = StateObject(wrappedValue: viewModel)
     }
     
     var body: some View {
+        let _ = Self._printChanges()
         GeometryReader { geometry in
             VStack(spacing: .zero) {
                 businessName
