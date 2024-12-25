@@ -6,6 +6,7 @@
 //
 
 enum NetworkError: Error {
+    case businessUnavailable
     case invalidServerResponse
     case invalidURL
     case locationNotFound
@@ -13,6 +14,8 @@ enum NetworkError: Error {
     
     var description: String {
         switch self {
+        case .businessUnavailable:
+            "No images"
         case .invalidServerResponse, .invalidURL:
             "We are unable to connect to the server right now. Please try again."
         case .locationNotFound:

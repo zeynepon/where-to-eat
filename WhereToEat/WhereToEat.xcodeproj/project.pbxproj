@@ -158,7 +158,6 @@
 			isa = PBXGroup;
 			children = (
 				21655EF42B19F5DB00B36557 /* NetworkProtocol.swift */,
-				2174CA852AF68B8900714BDA /* SearchViewModel.swift */,
 				21839E7D2C8DFDF300654572 /* NetworkCredentials.swift */,
 			);
 			path = Network;
@@ -206,6 +205,14 @@
 			path = FavouritesUI;
 			sourceTree = "<group>";
 		};
+		21877E922D1C55220042259C /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2174CA852AF68B8900714BDA /* SearchViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		2192D4B52AF2F12900AD7531 = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +248,7 @@
 				21655EF62B19FD4300B36557 /* MapUI */,
 				2192D4CA2AF2F12B00AD7531 /* Preview Content */,
 				21655EF82B19FD7500B36557 /* Network */,
+				21877E922D1C55220042259C /* Search */,
 				218752A62BD2EDEC00AC189B /* Info.plist */,
 				2192D4C92AF2F12B00AD7531 /* WhereToEat.entitlements */,
 				2192D4C12AF2F12A00AD7531 /* WhereToEatApp.swift */,

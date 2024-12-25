@@ -9,8 +9,8 @@ import SwiftUI
 
 struct BusinessView: View {
     let business: Business
-    @ObservedObject private var viewModel: BusinessViewModel
     
+    @ObservedObject private var viewModel: BusinessViewModel
     @State private var isShowingWebView = false
     
     init(business: Business, viewModel: BusinessViewModel) {
@@ -21,30 +21,22 @@ struct BusinessView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: .zero) {
-                Text(business.name)
-                    .font(.largeTitle)
-                    .bold()
-                    .fontDesign(.serif)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
+                businessName
                 businessInfo
                 rating
-                if let imageLink = URL(string: business.image_url ?? "") {
-                    AsyncImage(url: imageLink) { phase in
-                        switch phase {
-                        case .empty:
-                            ProgressView()
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: geometry.size.width / 2, height: geometry.size.height / 2, alignment: .center)
-                                .padding()
-                                .overlay(.quinary, in: .rect(cornerRadii: RectangleCornerRadii(), style: .continuous))
-                        case .failure:
-                            Image(systemName: "photo")
-                        @unknown default:
-                            EmptyView()
+                ScrollView(.horizontal) {
+                    Group {
+                        switch viewModel.businessDetailsLoadingState {
+                        case .loading, .none:
+                            redactedPhotosView(width: geometry.size.width / 2, height: geometry.size.height / 2)
+                        case .success:
+                            photosView(with: viewModel.businessDetails?.photos,
+                                       width: geometry.size.width / 2,
+                                       height: geometry.size.height / 2)
+                        case .failure(let error):
+                            noImagesView(errorMessage: error.description,
+                                         width: geometry.size.height / 2,
+                                         height: geometry.size.width / 2)
                         }
                     }
                     .padding()
@@ -89,6 +81,15 @@ struct BusinessView: View {
             .padding()
         }
         .padding()
+    }
+    
+    private var businessName: some View {
+        Text(business.name)
+            .font(.largeTitle)
+            .bold()
+            .fontDesign(.serif)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
     }
     
     @ViewBuilder
@@ -195,6 +196,56 @@ struct BusinessView: View {
                 WebView(url: business.url)
             }
         })
+    }
+    
+    private func noImagesView(errorMessage: String, width: CGFloat, height: CGFloat) -> some View {
+        ZStack {
+            roundedRectangle(width: width, height: height)
+            Text(errorMessage)
+                .bold()
+        }
+        .padding([.vertical, .trailing])
+    }
+    
+    private func photosView(with photos: [URL]?, width: CGFloat, height: CGFloat) -> some View {
+        HStack {
+            if let photos {
+                ForEach(photos, id: \.self) { photoURL in
+                    AsyncImage(url: photoURL) { phase in
+                        switch phase {
+                        case .empty:
+                            roundedRectangle(width: width, height: height)
+                        case .success(let image):
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: width, height: height, alignment: .center)
+                                .padding()
+                                .overlay(.quinary, in: .rect(cornerRadii: RectangleCornerRadii(), style: .continuous))
+                        case .failure:
+                            Image(systemName: "photo")
+                        @unknown default:
+                            EmptyView()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func redactedPhotosView(width: CGFloat, height: CGFloat) -> some View {
+        HStack {
+            roundedRectangle(width: width, height: height)
+            roundedRectangle(width: width, height: height)
+            roundedRectangle(width: width, height: height)
+        }
+    }
+    
+    private func roundedRectangle(width: CGFloat, height: CGFloat) -> some View {
+        RoundedRectangle(cornerRadius: 8)
+            .fill(.redactedBackground)
+            .frame(width: width, height: height, alignment: .center)
+            .padding()
     }
 }
 

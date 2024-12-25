@@ -63,7 +63,7 @@ class Network: NetworkProtocol {
         }
         
         guard httpResponse.statusCode == 200 else {
-            throw httpResponse.statusCode == 400 ? NetworkError.locationNotFound : NetworkError.invalidServerResponse
+            throw httpResponse.statusCode == 403 ? NetworkError.businessUnavailable : NetworkError.invalidServerResponse
         }
         
         guard let businessDetails = try JSONDecoder().decode(BusinessDetails?.self, from: data) else {
