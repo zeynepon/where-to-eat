@@ -10,11 +10,11 @@ import SwiftUI
 struct LaunchView: View {
     var searchViewModel: SearchViewModel
     @ObservedObject var favoritesViewModel: FavoritesViewModel
-    var locationManager: LocationManager
+    @ObservedObject var locationManager: LocationManager
     
     var body: some View {
         TabView {
-            MapViewRepresentable(favorites: $favoritesViewModel.favorites, coordinate: locationManager.location)
+            MapViewRepresentable(favorites: $favoritesViewModel.favorites, coordinate: $locationManager.location)
                 .tabItem {
                     Image(systemName: "map")
                     Text("Map")

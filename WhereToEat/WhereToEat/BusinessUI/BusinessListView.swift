@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct BusinessListView: View {
-    @StateObject var searchViewModel: SearchViewModel
+    @ObservedObject var searchViewModel: SearchViewModel
     @State private var searchText: String = ""
     @State private var isKeyboardShown: Bool = false
     private let favoritesViewModel: FavoritesViewModel
     
     init(favoritesViewModel: FavoritesViewModel, searchViewModel: SearchViewModel) {
         self.favoritesViewModel = favoritesViewModel
-        self._searchViewModel = StateObject(wrappedValue: searchViewModel)
+        self.searchViewModel = searchViewModel
     }
     
     var body: some View {

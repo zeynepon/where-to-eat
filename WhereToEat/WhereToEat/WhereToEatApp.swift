@@ -11,12 +11,18 @@ import SwiftUI
 
 @main
 struct WhereToEatApp: App {
-    @StateObject var locationManager = LocationManager()
+    @StateObject var locationManager: LocationManager
+    @StateObject var favoritesViewModel: FavoritesViewModel
+    @StateObject var searchViewModel: SearchViewModel
+    
+    init() {
+        self._locationManager = StateObject(wrappedValue: LocationManager())
+        self._favoritesViewModel = StateObject(wrappedValue: FavoritesViewModel())
+        self._searchViewModel = StateObject(wrappedValue: SearchViewModel(network: Network()))
+    }
     
     var body: some Scene {
         WindowGroup {
-            let favoritesViewModel = FavoritesViewModel()
-            let searchViewModel = SearchViewModel(network: Network())
             LaunchView(searchViewModel: searchViewModel,
                        favoritesViewModel: favoritesViewModel,
                        locationManager: locationManager)

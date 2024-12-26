@@ -11,11 +11,11 @@ import MapKit
 struct MapViewRepresentable: UIViewRepresentable {
     typealias UIViewType = MKMapView
     @Binding var favorites: [Business]
-    let coordinate: CLLocationCoordinate2D?
+    @Binding var coordinate: CLLocationCoordinate2D?
     @State private var userCentered: Bool = false
     
     func makeCoordinator() -> MapViewCoordinator {
-        MapViewCoordinator(with: self)
+        MapViewCoordinator()
     }
     
     func makeUIView(context: Context) -> MKMapView {
@@ -39,8 +39,8 @@ struct MapViewRepresentable: UIViewRepresentable {
         if let coordinate, !userCentered {
             let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
             let region = MKCoordinateRegion(center: coordinate, span: span)
-            uiView.setRegion(region, animated: true)
             Task { @MainActor in
+                uiView.setRegion(region, animated: true)
                 userCentered.toggle()
             }
         }
@@ -86,12 +86,6 @@ class UserAnnotation: NSObject, MKAnnotation {
 }
 
 class MapViewCoordinator: NSObject, MKMapViewDelegate {
-    var mapView: MapViewRepresentable
-    
-    init(with view: MapViewRepresentable) {
-        self.mapView = view
-    }
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
         guard !annotation.isKind(of: MKUserLocation.self) else { return nil }
         
