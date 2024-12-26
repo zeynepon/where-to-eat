@@ -14,7 +14,7 @@ class FavoritesViewModel: ObservableObject {
     
     init(userDefaults: UserDefaults = UserDefaults.standard) {
         self.userDefaults = userDefaults
-        self.userDefaultsKey = "Favourites"
+        self.userDefaultsKey = "Favorites"
         
         var favorites: [Business]?
         if let data = userDefaults.data(forKey: userDefaultsKey) {

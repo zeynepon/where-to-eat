@@ -15,13 +15,13 @@ enum NetworkError: Error {
     var description: String {
         switch self {
         case .businessUnavailable:
-            "No images"
+            String(localized: "No images")
         case .invalidServerResponse, .invalidURL:
-            "We are unable to connect to the server right now. Please try again."
+            String(localized: "We are unable to connect to the server right now. Please try again.")
         case .locationNotFound:
-            "Could not execute search, try specifying a more exact location."
+            String(localized: "Could not execute search, try specifying a more exact location.")
         case .unsupportedJson:
-            "We are unable to fetch the data right now. Please try again."
+            String(localized: "We are unable to fetch the data right now. Please try again.")
         }
     }
 }

@@ -29,20 +29,19 @@ struct FavoritesView: View {
                         viewModel.remove(at: indexSet)
                     }
                 }
-                .navigationTitle("Favourites")
+                .navigationTitle(String(localized: "Favorites"))
             }
         } else {
             VStack {
-                Text("You have no favourites at the moment")
+                Text(String(localized: "You have no favorites at the moment"))
                     .bold()
                     .font(.title)
-                    .fontDesign(.serif)
-                    .multilineTextAlignment(.center)
-                Text("Add a favourite by searching restaurants in the search tab 🔎")
+                Text(String(localized: "Add a favorite by searching restaurants in the search tab 🔎"))
                     .font(.headline)
-                    .fontDesign(.serif)
-                    .multilineTextAlignment(.center)
             }
+            .fontDesign(.serif)
+            .multilineTextAlignment(.center)
+            .padding()
         }
     }
 }

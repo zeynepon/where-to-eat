@@ -173,7 +173,7 @@ struct BusinessView: View {
             isShowingWebView.toggle()
         } label: {
             HStack(spacing: 4) {
-                Text("View in ")
+                Text(String(localized: "View in "))
                 Image("yelpLogo")
                     .resizable()
                     .frame(width: 51.20, height: 24.92)

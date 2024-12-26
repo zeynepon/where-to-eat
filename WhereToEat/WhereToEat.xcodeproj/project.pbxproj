@@ -31,6 +31,7 @@
 		2192D4E02AF2F12B00AD7531 /* WhereToEatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4DF2AF2F12B00AD7531 /* WhereToEatUITests.swift */; };
 		2192D4E22AF2F12B00AD7531 /* WhereToEatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2192D4E12AF2F12B00AD7531 /* WhereToEatUITestsLaunchTests.swift */; };
 		219E44B82B16426700CBB1EC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E44B72B16426700CBB1EC /* LocationManager.swift */; };
+		219EC18B2D1D9654009FC366 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 219EC18A2D1D9654009FC366 /* Localizable.xcstrings */; };
 		21B9F4862B5422210057E1B6 /* BusinessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21B9F4852B5422210057E1B6 /* BusinessViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		2192D4DF2AF2F12B00AD7531 /* WhereToEatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToEatUITests.swift; sourceTree = "<group>"; };
 		2192D4E12AF2F12B00AD7531 /* WhereToEatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToEatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		219E44B72B16426700CBB1EC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		219EC18A2D1D9654009FC366 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		21B9F4852B5422210057E1B6 /* BusinessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +251,7 @@
 				2192D4CA2AF2F12B00AD7531 /* Preview Content */,
 				21655EF82B19FD7500B36557 /* Network */,
 				21877E922D1C55220042259C /* Search */,
+				219EC18A2D1D9654009FC366 /* Localizable.xcstrings */,
 				218752A62BD2EDEC00AC189B /* Info.plist */,
 				2192D4C92AF2F12B00AD7531 /* WhereToEat.entitlements */,
 				2192D4C12AF2F12A00AD7531 /* WhereToEatApp.swift */,
@@ -378,6 +381,11 @@
 			knownRegions = (
 				en,
 				Base,
+				tr,
+				fr,
+				"en-GB",
+				it,
+				de,
 			);
 			mainGroup = 2192D4B52AF2F12900AD7531;
 			packageReferences = (
@@ -400,6 +408,7 @@
 			files = (
 				2192D4CC2AF2F12B00AD7531 /* Preview Assets.xcassets in Resources */,
 				2192D4C82AF2F12B00AD7531 /* Assets.xcassets in Resources */,
+				219EC18B2D1D9654009FC366 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,6 +547,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -593,6 +603,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};

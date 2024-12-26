@@ -17,17 +17,17 @@ struct LaunchView: View {
             MapViewRepresentable(favorites: $favoritesViewModel.favorites, coordinate: $locationManager.location)
                 .tabItem {
                     Image(systemName: "map")
-                    Text("Map")
+                    Text(String(localized: "Map"))
                 }
             SearchView(favoritesViewModel: favoritesViewModel, searchViewModel: searchViewModel)
                 .tabItem {
                     Image(systemName: "magnifyingglass.circle")
-                    Text("Search")
+                    Text(String(localized: "Search"))
                 }
             FavoritesView(viewModel: favoritesViewModel)
                 .tabItem {
                     Image(systemName: "star.fill")
-                    Text("Favourites")
+                    Text(String(localized: "Favorites"))
                 }
         }
     }

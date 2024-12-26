@@ -36,7 +36,7 @@ struct BusinessListView: View {
                 }
                 Spacer()
             }
-            .navigationTitle("Search")
+            .navigationTitle(String(localized: "Search"))
             .navigationBarTitleDisplayMode(.inline)
         }
         .onChange(of: searchText) { oldValue, newValue in
@@ -62,9 +62,9 @@ struct BusinessListView: View {
             if searchViewModel.nextPageLoadingState != .limitReached {
                 switch searchViewModel.nextPageLoadingState {
                 case .loading:
-                    ProgressView("Loading")
+                    ProgressView(String(localized: "Loading"))
                 case .success:
-                    ProgressView("Loading")
+                    ProgressView(String(localized: "Loading"))
                         .onAppear {
                             Task {
                                 await searchViewModel.getNextPage(searchText: searchText)
@@ -82,21 +82,22 @@ struct BusinessListView: View {
     @ViewBuilder
     private var emptyStateView: some View {
         VStack(spacing: 4) {
-            Text("Start your search for restaurants here 🔎")
+            Text(String(localized: "Start your search for restaurants here 🔎"))
                 .font(.title)
                 .bold()
-            Text("Enter a location in which you'd like to see restaurants")
+            Text(String(localized: "Enter a location in which you'd like to see restaurants"))
                 .font(.headline)
         }
         .multilineTextAlignment(.center)
         .fontDesign(.serif)
+        .padding()
     }
     
     private var progressView: some View {
         VStack(spacing: 8) {
             ProgressView()
                 .scaleEffect(1.5)
-            Text("Loading restaurants...")
+            Text(String(localized: "Loading restaurants..."))
         }
     }
     
@@ -104,7 +105,7 @@ struct BusinessListView: View {
         HStack {
             SearchViewRepresentable(searchText: $searchText, viewModel: searchViewModel)
             if isKeyboardShown {
-                Button("Cancel") {
+                Button(String(localized: "Cancel")) {
                     searchText = ""
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 }
@@ -123,7 +124,7 @@ struct BusinessListView: View {
                     Button {
                         searchViewModel.evaluateSearchState(searchText: searchText)
                     } label: {
-                        Text("Try again")
+                        Text(String(localized: "Try again"))
                             .bold()
                     }
                 }
