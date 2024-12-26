@@ -62,14 +62,23 @@ struct BusinessListView: View {
             if searchViewModel.nextPageLoadingState != .limitReached {
                 switch searchViewModel.nextPageLoadingState {
                 case .loading:
-                    ProgressView(String(localized: "Loading"))
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    .id(UUID())
                 case .success:
-                    ProgressView(String(localized: "Loading"))
-                        .onAppear {
-                            Task {
-                                await searchViewModel.getNextPage(searchText: searchText)
-                            }
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                        Spacer()
+                    }
+                    .onAppear {
+                        Task {
+                            await searchViewModel.getNextPage(searchText: searchText)
                         }
+                    }
                 default:
                     EmptyView()
                 }
