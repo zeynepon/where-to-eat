@@ -62,7 +62,6 @@ class SearchViewModel: ObservableObject {
         }
         nextPageLoadingState = .loading
         do {
-            print("limit: \(businessFetchLimit), offset: \(businessFetchOffset)")
             let nextPage = try await network.fetchBusinesses(searchText, limit: businessFetchLimit, offset: businessFetchOffset).businesses
             businesses += nextPage
             businessFetchOffset += businessFetchLimit
