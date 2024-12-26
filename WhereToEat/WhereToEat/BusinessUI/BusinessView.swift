@@ -19,7 +19,6 @@ struct BusinessView: View {
     }
     
     var body: some View {
-        let _ = Self._printChanges()
         GeometryReader { geometry in
             VStack(spacing: .zero) {
                 businessName

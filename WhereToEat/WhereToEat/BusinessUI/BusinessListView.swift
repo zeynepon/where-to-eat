@@ -52,16 +52,30 @@ struct BusinessListView: View {
     @ViewBuilder
     private var businessListView: some View {
         List {
-            if let businesses = searchViewModel.businesses {
-                ForEach(businesses, id: \.self) { business in
-                    NavigationLink {
-                        BusinessView(business: business, viewModel: BusinessViewModel(business: business, favoritesViewModel: favoritesViewModel))
-                    } label: {
-                        Text(business.name)
-                    }
+            ForEach(searchViewModel.businesses, id: \.self) { business in
+                NavigationLink {
+                    BusinessView(business: business, viewModel: BusinessViewModel(business: business, favoritesViewModel: favoritesViewModel))
+                } label: {
+                    Text(business.name)
+                }
+            }
+            if searchViewModel.nextPageLoadingState != .limitReached {
+                switch searchViewModel.nextPageLoadingState {
+                case .loading:
+                    ProgressView("Loading")
+                case .success:
+                    ProgressView("Loading")
+                        .onAppear {
+                            Task {
+                                await searchViewModel.getNextPage(searchText: searchText)
+                            }
+                        }
+                default:
+                    EmptyView()
                 }
             }
         }
+        .listStyle(.plain)
         .padding(.top, -16)
     }
     

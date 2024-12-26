@@ -11,7 +11,7 @@ protocol NetworkProtocol {
     var networkCredentials: NetworkCredentialsProtocol { get }
     var session: URLSession { get }
     
-    func fetchBusinesses(_ searchText: String) async throws -> Businesses
+    func fetchBusinesses(_ searchText: String, limit: Int, offset: Int) async throws -> Businesses
     func fetchBusinessDetails(businessAlias: String) async throws -> BusinessDetails
 }
 
@@ -23,8 +23,8 @@ class Network: NetworkProtocol {
         self.networkCredentials = networkCredentials
     }
     
-    public func fetchBusinesses(_ searchText: String) async throws -> Businesses {
-        guard let url = URL(string: "\(networkCredentials.baseURL)search?term=food&location=\(searchText)") else {
+    public func fetchBusinesses(_ searchText: String, limit: Int, offset: Int) async throws -> Businesses {
+        guard let url = URL(string: "\(networkCredentials.baseURL)search?term=food&location=\(searchText)&limit=\(limit)&offset=\(offset)") else {
             throw NetworkError.invalidURL
         }
         

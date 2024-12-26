@@ -55,7 +55,7 @@ struct Coordinate: Codable, Hashable {
 }
 
 struct Location: Codable, Hashable {
-    var address1: String
+    var address1: String?
     var address2: String?
     var address3: String?
     var city: String
